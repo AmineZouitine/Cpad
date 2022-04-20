@@ -1,9 +1,14 @@
-#include "singleton.hh"
+#pragma once
 
-template<typename TargetClass>
+#include "singleton.hh"
+#include "folder.hh"
+
+#include <map>
+#include <string>
+
 class JsonReader : public Singleton<JsonReader>
 {
 public:
-    TargetClass& readJson(string path);
-    void saveToJson(string path, TargetClass& currentObject);
+    std::map<std::string, Folder>& readJson(std::string path);
+    void saveToJson(std::string path, Folder& currentObject);
 };
