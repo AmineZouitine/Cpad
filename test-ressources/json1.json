@@ -1,0 +1,22 @@
+{
+    ".":
+    {
+        "directories" : ["git_commands", "shell"],
+        "commands" : ["ls -a", "ls"]
+    },
+    "git_commands":
+    {
+        "directories" : [],
+        "commands" : ["git status", "git branch"]
+    },
+    "shell":
+    {
+        "directories" : ["test"],
+        "commands" : ["echo coucou"]
+    },
+    "test":
+    {
+        "directories" : [],
+        "commands" : ["echo test"]
+    }
+}

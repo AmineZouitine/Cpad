@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "init-tests.hh"
-
+#include "json-tests.hh"
 
 int main(int argc, char* argv[])
 {
