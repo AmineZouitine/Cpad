@@ -15,6 +15,5 @@ check: test
 	./test
 
 clean:
-	${RM} ${OBJS} ${TEST_OBJS} ${MAIN_OBJ} main test
-
+	${RM} test main
 .PHONY: main check test clean
