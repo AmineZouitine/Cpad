@@ -9,7 +9,7 @@ class Singleton
     Singleton& operator=(const Singleton&) = delete;
     Singleton& operator=(Singleton&&) = delete;
 
-    static const T& instance()
+    static T& instance()
     {
       static T instance;
       return instance;
