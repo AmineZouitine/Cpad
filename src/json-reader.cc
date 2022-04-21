@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
+
 std::map<std::string, Folder> JsonReader::readJson(std::string path)
 {
     auto map = std::map<std::string, Folder>();

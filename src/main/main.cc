@@ -15,6 +15,7 @@ int main(int argc, char **argv)
                   << '\n';
         return 1;
     }
+
     auto map = JsonReader::instance().readJson(argv[1]);
     for (auto &elem : map)
     {
@@ -25,5 +26,6 @@ int main(int argc, char **argv)
                       << " || is_folder -> "
                       << elem.second.get_elements()[i].get_is_folder() << '\n';
         std::cout << "\n";
+        
     }
 }
