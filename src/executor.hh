@@ -7,5 +7,5 @@
 class Executor : public Singleton<Executor>
 {
 public:
-    bool execute(std::string &command_name);
+    bool execute(std::string &command_name, bool is_folder);
 };
