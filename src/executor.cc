@@ -4,8 +4,8 @@
 #include <memory>
 #include <stdlib.h>
 
-
-void Executor::execute(std::string& command_name)
+bool Executor::execute(std::string &command_name)
 {
     system(command_name.c_str());
+    return true;
 }

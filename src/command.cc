@@ -6,6 +6,5 @@ Command::Command(std::string &command_name)
 
 void execute_command()
 {
-    
     return;
 }
