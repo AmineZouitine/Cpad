@@ -10,7 +10,7 @@ jobs:
       image: docker://srzzumix/googletest:latest
     steps:
       - name: install
-        run: sudo apt-get install -y nlohmann-json-dev
+        run: apt-get install -y nlohmann-json-dev
       - name: Checkout
         uses: actions/checkout@v2
       - name: gtest
