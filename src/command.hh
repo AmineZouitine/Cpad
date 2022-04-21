@@ -1,9 +1,11 @@
 #pragma once
 
-#include "element.hh"
 #include <string>
 
-class Command : public Element {
+#include "element.hh"
+
+class Command : public Element
+{
 public:
     Command(std::string &command_name);
     std::string &get_command_name() const;
