@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -22,12 +23,12 @@ void home_file_check(std::ifstream &json_file, std::string &home_path)
     if (!json_file)
     {
         std::ofstream outfile(home_path);
-        outfile << "{}";
+        outfile << "{\n}";
     }
 }
 
 void command_launcher(std::map<std::string, Folder> &map,
-                      std::string &command_number, std::string &current_folder,
+                      std::string &command_input, std::string &current_folder,
                       std::string &command_name)
 {
     bool is_folder = false;
@@ -35,25 +36,26 @@ void command_launcher(std::map<std::string, Folder> &map,
     {
         // -> TON AFFICHAGE VALAT
         // display(current_folder, map);
-        std::cout << "Choose your command -> ";
-        std::cin >> command_number;
-        if (std::stoi(command_number)
-            > map[current_folder].get_elements().size())
-            continue;
-        command_name = map[current_folder]
-                           .get_elements()[std::stoi(command_number) - 1]
-                           .get_name();
-        if (map[current_folder]
-                .get_elements()[std::stoi(command_number) - 1]
-                .get_is_folder())
-        {
-            current_folder = command_name;
-            is_folder = true;
-        }
-        else
-            is_folder = false;
+        auto elements = map[current_folder].get_elements();
 
-    } while (command_number != "q"
+        std::cout << "Choose your command -> ";
+        std::cin >> command_input;
+
+        if (!std::all_of(command_input.cbegin(), command_input.cend(),
+                         ::isdigit))
+            continue;
+
+        auto command_number = std::stoi(command_input);
+        if (command_number > elements.size())
+            continue;
+
+        command_name = elements[command_number - 1].get_name();
+        if (elements[command_number - 1].get_is_folder())
+            current_folder = command_name;
+
+        is_folder = elements[command_number - 1].get_is_folder();
+
+    } while (command_input != "q"
              && Executor::instance().execute(command_name, is_folder));
 }
 
@@ -67,10 +69,9 @@ int main(int argc, char **argv)
     home_file_check(json_file, home_path);
 
     auto map = JsonReader::instance().readJson(home_path);
-
-    std::string command_number;
+    std::string command_input;
     std::string command_name;
     std::string current_folder = ".";
 
-    command_launcher(map, command_number, current_folder, command_name);
+    command_launcher(map, command_input, current_folder, command_name);
 }
