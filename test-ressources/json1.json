@@ -1,22 +1,22 @@
 {
     ".":
     {
-        "directories" : ["git_commands", "shell"],
+        "folders" : ["git_commands", "shell"],
         "commands" : ["ls -a", "ls"]
     },
     "git_commands":
     {
-        "directories" : [],
+        "folders" : [],
         "commands" : ["git status", "git branch"]
     },
     "shell":
     {
-        "directories" : ["test"],
+        "folders" : ["test"],
         "commands" : ["echo coucou"]
     },
     "test":
     {
-        "directories" : [],
+        "folders" : [],
         "commands" : ["echo test"]
     }
 }

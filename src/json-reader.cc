@@ -15,8 +15,11 @@ std::map<std::string, Folder> JsonReader::readJson(std::string path)
         std::vector<Element> elements;
         std::string key = el.key();
         for (const auto &elt : json[key].items())
+        {
+            bool is_folder = elt.key() == "folders";
             for (std::string name : elt.value())
-                elements.push_back(Element(name));
+                elements.push_back(Element(name, is_folder));
+        }
         map.insert({ key, Folder(elements) });
     }
 
