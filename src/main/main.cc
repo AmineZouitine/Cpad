@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 
 #include "../json-reader.hh"
+#include "../executor.hh"
 
 using json = nlohmann::json;
 
@@ -26,6 +27,11 @@ int main(int argc, char **argv)
                       << " || is_folder -> "
                       << elem.second.get_elements()[i].get_is_folder() << '\n';
         std::cout << "\n";
-        
     }
+    std::string current_folder = ".";
+    std::string command_number;
+    std::cout << "Choose your command -> ";
+    std::cin >> command_number;
+    auto command_name = map[current_folder].get_elements()[std::stoi(command_number) - 1].get_name();
+    Executor::instance().execute(command_name);
 }

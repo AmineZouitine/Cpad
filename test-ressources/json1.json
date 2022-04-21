@@ -2,7 +2,7 @@
     ".":
     {
         "folders" : ["git_commands", "shell"],
-        "commands" : ["ls -a", "ls"]
+        "commands" : ["git commit -m", "ls"]
     },
     "git_commands":
     {

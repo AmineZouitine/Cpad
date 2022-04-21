@@ -7,6 +7,7 @@
 class Folder
 {
 public:
+    Folder() = default;
     Folder(std::vector<Element> &elements);
     void add_command(std::string &command_name);
     void add_folder(std::string &folder_name);
