@@ -21,7 +21,7 @@ void home_file_check(std::ifstream &json_file, std::string &home_path)
     if (!json_file)
     {
         std::ofstream outfile(home_path);
-        outfile << "{\n}";
+        outfile << "CURRENT .\n--STOP--";
     }
 }
 
@@ -62,7 +62,7 @@ int main(int argc, char **)
     args_count_check(argc);
 
     std::ifstream json_file;
-    std::string home_path = std::string(getenv("HOME")) + "/.cpad.json";
+    std::string home_path = std::string(getenv("HOME")) + "/.cpad";
 
     home_file_check(json_file, home_path);
 
