@@ -1,8 +1,8 @@
 #include "element.hh"
 
 Element::Element(std::string name, bool is_folder)
-    : name_(name)
-    , is_folder_(is_folder)
+    : is_folder_(is_folder)
+    , name_(name)
 {}
 
 bool Element::get_is_folder() const

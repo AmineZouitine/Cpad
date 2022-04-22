@@ -6,10 +6,10 @@ MAIN_OBJ= src/main/main.cc
 TEST_OBJS= $(wildcard tests/*.cc) 
 
 main: ${OBJS} ${MAIN_OBJ}
-	${CXX} -o $@ $^
+	${CXX} -o $@ $^ ${CXXFLAGS}
 
 test: ${TEST_OBJS} ${OBJS}
-	${CXX} -o $@ $^ -lgtest -lpthread
+	${CXX} -o $@ $^ ${CXXFLAGS} -lgtest -lpthread
 
 check: test
 	./test

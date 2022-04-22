@@ -1,0 +1,6 @@
+CURRENT .
+FOLDER git commands
+FOLDER test
+COMMAND ls -a
+COMMAND ls
+--STOP--
