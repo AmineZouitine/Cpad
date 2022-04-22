@@ -8,7 +8,7 @@
 TEST(convertor, easy_parsing)
 {
     std::string path =
-        "/home/aminou/Perso/Command-Note-Pad/test-ressources/.cpad_easy";
+        "./test-ressources/.cpad_easy";
     auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 1);
@@ -32,7 +32,7 @@ TEST(convertor, easy_parsing)
 TEST(convertor, medium)
 {
     std::string path =
-        "/home/aminou/Perso/Command-Note-Pad/test-ressources/.cpad_medium";
+        "./test-ressources/.cpad_medium";
     auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 2);
