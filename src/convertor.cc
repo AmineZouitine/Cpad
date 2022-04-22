@@ -54,8 +54,23 @@ std::map<std::string, Folder> Convertor::read(std::string &path)
     return map;
 }
 
-void Convertor::write(std::map<std::string, Folder> &map)
+void Convertor::write(std::map<std::string, Folder> &map, std::string& path)
 {
-    map.clear();
+    std::ofstream MyFile(path);
+
+    for (auto& folder: map)
+    {
+        MyFile << "CURRENT " + folder.first + '\n';
+        for (auto& elem : folder.second.get_elements())
+        {
+            if (elem.get_is_folder())
+                MyFile << "FOLDER ";
+            else
+                MyFile << "COMMAND ";
+            MyFile << elem.get_name() << '\n';
+        }
+        MyFile << "--STOP--\n";
+    }
+    MyFile.close();
     return;
 }

@@ -10,5 +10,5 @@ class Convertor : public Singleton<Convertor>
 {
 public:
     std::map<std::string, Folder> read(std::string& path);
-    void write(std::map<std::string, Folder>& map);
+    void write(std::map<std::string, Folder>& map, std::string& path);
 };
