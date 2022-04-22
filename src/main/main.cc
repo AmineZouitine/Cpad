@@ -5,6 +5,7 @@
 
 #include "../convertor.hh"
 #include "../executor.hh"
+#include "../display.hh"
 
 void args_count_check(int argc)
 {
@@ -32,8 +33,7 @@ void command_launcher(std::map<std::string, Folder> &map,
     bool is_folder = false;
     do
     {
-        // -> TON AFFICHAGE VALAT
-        // display(current_folder, map);
+        Display::instance().display(current_folder, map);
         auto elements = map[current_folder].get_elements();
 
         std::cout << "Choose your command -> ";
