@@ -87,6 +87,18 @@ void Convertor::remove_command(std::map<std::string, Folder> &map, std::string &
 
 void Convertor::remove_folder(std::map<std::string, Folder> &map, std::string &key)
 {
+    for (auto& folder : map)
+    {
+        for (size_t i = 0;  i < folder.second.get_elements().size(); i++)
+        {
+            auto elem = folder.second.get_elements()[i];
+            if (elem.get_is_folder() && elem.get_name() == key)
+            {
+                std::string folder_name = folder.first;
+                remove_command(map, folder_name, i + 1);
+            }
+        }
+    }
     map.erase(key);
 }
 
@@ -107,4 +119,5 @@ void Convertor::add_folder(std::map<std::string, Folder> &map, std::string &key,
                 std::string &folder_name)
 {
     map[key].get_elements().push_back(Element(folder_name));
+    map.insert({folder_name, Folder()});
 }

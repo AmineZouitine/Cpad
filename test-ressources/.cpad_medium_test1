@@ -1,9 +1,4 @@
 CURRENT .
-FOLDER git commands
-FOLDER test
-COMMAND ls -a
-COMMAND ls
 --STOP--
 CURRENT git commands
-COMMAND git add *
 --STOP--
