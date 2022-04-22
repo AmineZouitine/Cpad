@@ -1,12 +1,10 @@
+#include <algorithm>
 #include <ctype.h>
 #include <fstream>
 #include <iostream>
-#include <nlohmann/json.hpp>
 
+#include "../convertor.hh"
 #include "../executor.hh"
-#include "../json-reader.hh"
-
-using json = nlohmann::json;
 
 void args_count_check(int argc)
 {
@@ -45,7 +43,7 @@ void command_launcher(std::map<std::string, Folder> &map,
                          ::isdigit))
             continue;
 
-        auto command_number = std::stoi(command_input);
+        size_t command_number = std::stoi(command_input);
         if (command_number > elements.size())
             continue;
 
@@ -59,7 +57,7 @@ void command_launcher(std::map<std::string, Folder> &map,
              && Executor::instance().execute(command_name, is_folder));
 }
 
-int main(int argc, char **argv)
+int main(int argc, char **)
 {
     args_count_check(argc);
 
@@ -68,7 +66,7 @@ int main(int argc, char **argv)
 
     home_file_check(json_file, home_path);
 
-    auto map = JsonReader::instance().readJson(home_path);
+    auto map = Convertor::instance().read(home_path);
     std::string command_input;
     std::string command_name;
     std::string current_folder = ".";
