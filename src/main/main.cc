@@ -2,10 +2,12 @@
 #include <ctype.h>
 #include <fstream>
 #include <iostream>
+#include <stack>
 
 #include "../convertor.hh"
 #include "../display.hh"
 #include "../executor.hh"
+
 
 void args_count_check(int argc)
 {
@@ -31,7 +33,7 @@ void command_launcher(std::map<std::string, Folder> &map,
                       std::string &command_name)
 {
     bool skip_execute = false;
-    std::string last_directory;
+    std::stack<std::string> last_folders;
     do
     {
         Display::instance().display(current_folder, map);
@@ -49,7 +51,11 @@ void command_launcher(std::map<std::string, Folder> &map,
         if (command_number > elements.size() || command_number < 1)
         {
             if (command_number == elements.size() + 1 && current_folder != ".")
-                current_folder = last_directory;
+            {
+                current_folder = last_folders.top();
+                last_folders.pop();
+            }
+
             skip_execute = true;
             continue;
         }
@@ -57,7 +63,7 @@ void command_launcher(std::map<std::string, Folder> &map,
         command_name = elements[command_number - 1].get_name();
         if (elements[command_number - 1].get_is_folder())
         {
-            last_directory = current_folder;
+            last_folders.emplace(current_folder);
             current_folder = command_name;
         }
 
