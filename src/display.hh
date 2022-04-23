@@ -10,6 +10,6 @@
 
 class Display : public Singleton<Display>
 {
-    public:
-        void display (std::string &key, std::map<std::string, Folder> &map);
+public:
+    void display(std::string &key, std::map<std::string, Folder> &map);
 };
