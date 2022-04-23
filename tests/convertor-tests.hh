@@ -7,8 +7,7 @@
 
 TEST(convertor, easy_parsing)
 {
-    std::string path =
-        "./test-ressources/.cpad_easy";
+    std::string path = "./test-ressources/.cpad_easy";
     auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 1);
@@ -31,8 +30,7 @@ TEST(convertor, easy_parsing)
 
 TEST(convertor, medium)
 {
-    std::string path =
-        "./test-ressources/.cpad_medium";
+    std::string path = "./test-ressources/.cpad_medium";
     auto map = Convertor::instance().read(path);
 
     ASSERT_EQ(map.size(), 2);
@@ -62,8 +60,7 @@ TEST(convertor, medium)
 TEST(convertor, write_easy)
 {
     std::string path1 = "./test-ressources/.cpad_easy";
-    std::string path =
-        "./test-ressources/.cpad_easy_test1";
+    std::string path = "./test-ressources/.cpad_easy_test1";
     auto map_init = Convertor::instance().read(path1);
     Convertor::instance().write(map_init, path);
     auto map = Convertor::instance().read(path);
@@ -89,8 +86,7 @@ TEST(convertor, write_easy)
 TEST(convertor, write_medium)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
-    std::string path =
-        "./test-ressources/.cpad_medium_test1";
+    std::string path = "./test-ressources/.cpad_medium_test1";
     auto map_init = Convertor::instance().read(path1);
     Convertor::instance().write(map_init, path);
     auto map = Convertor::instance().read(path);
@@ -122,8 +118,7 @@ TEST(convertor, write_medium)
 TEST(convertor, write_add_command)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
-    std::string path =
-        "./test-ressources/.cpad_medium_test1";
+    std::string path = "./test-ressources/.cpad_medium_test1";
 
     auto map = Convertor::instance().read(path1);
 
@@ -160,12 +155,10 @@ TEST(convertor, write_add_command)
     ASSERT_EQ(map["git commands"].get_elements()[0].get_name(), "git add *");
 }
 
-
 TEST(convertor, write_remove_command)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
-    std::string path =
-        "./test-ressources/.cpad_medium_test1";
+    std::string path = "./test-ressources/.cpad_medium_test1";
 
     auto map = Convertor::instance().read(path1);
 
@@ -195,12 +188,10 @@ TEST(convertor, write_remove_command)
     ASSERT_EQ(map["git commands"].get_elements()[0].get_name(), "git add *");
 }
 
-
 TEST(convertor, write_add_folder)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
-    std::string path =
-        "./test-ressources/.cpad_medium_test1";
+    std::string path = "./test-ressources/.cpad_medium_test1";
 
     auto map = Convertor::instance().read(path1);
 
@@ -208,7 +199,6 @@ TEST(convertor, write_add_folder)
     std::string folder_name = "New folder";
     Convertor::instance().add_folder(map, parent_folder, folder_name);
     Convertor::instance().write(map, path);
-
 
     ASSERT_EQ(map.size(), 3);
 
@@ -223,7 +213,6 @@ TEST(convertor, write_add_folder)
 
     ASSERT_FALSE(map["."].get_elements()[2].get_is_folder());
     ASSERT_EQ(map["."].get_elements()[2].get_name(), "ls -a");
-
 
     ASSERT_FALSE(map["."].get_elements()[3].get_is_folder());
     ASSERT_EQ(map["."].get_elements()[3].get_name(), "ls");
@@ -244,8 +233,7 @@ TEST(convertor, write_add_folder)
 TEST(convertor, write_remove_folder)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
-    std::string path =
-        "./test-ressources/.cpad_medium_test1";
+    std::string path = "./test-ressources/.cpad_medium_test1";
 
     auto map = Convertor::instance().read(path1);
 
@@ -254,7 +242,6 @@ TEST(convertor, write_remove_folder)
     Convertor::instance().add_folder(map, parent_folder, folder_name);
     Convertor::instance().remove_folder(map, folder_name);
     Convertor::instance().write(map, path);
-
 
     ASSERT_EQ(map.size(), 2);
 
@@ -270,24 +257,20 @@ TEST(convertor, write_remove_folder)
     ASSERT_FALSE(map["."].get_elements()[2].get_is_folder());
     ASSERT_EQ(map["."].get_elements()[2].get_name(), "ls -a");
 
-
     ASSERT_FALSE(map["."].get_elements()[3].get_is_folder());
     ASSERT_EQ(map["."].get_elements()[3].get_name(), "ls");
-
 
     ASSERT_TRUE(map.find("git commands") != map.end());
     ASSERT_EQ(map["git commands"].get_elements().size(), 1);
 
     ASSERT_FALSE(map["git commands"].get_elements()[0].get_is_folder());
     ASSERT_EQ(map["git commands"].get_elements()[0].get_name(), "git add *");
-
 }
 
 TEST(convertor, write_reset_folder)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
-    std::string path =
-        "./test-ressources/.cpad_medium_test1";
+    std::string path = "./test-ressources/.cpad_medium_test1";
 
     auto map = Convertor::instance().read(path1);
 
@@ -295,34 +278,28 @@ TEST(convertor, write_reset_folder)
     Convertor::instance().reset_folder(map, parent_folder);
     Convertor::instance().write(map, path);
 
-
     ASSERT_EQ(map.size(), 2);
 
     ASSERT_TRUE(map.find(".") != map.end());
     ASSERT_EQ(map["."].get_elements().size(), 0);
-
-
 
     ASSERT_TRUE(map.find("git commands") != map.end());
     ASSERT_EQ(map["git commands"].get_elements().size(), 1);
 
     ASSERT_FALSE(map["git commands"].get_elements()[0].get_is_folder());
     ASSERT_EQ(map["git commands"].get_elements()[0].get_name(), "git add *");
-
 }
 
 TEST(convertor, write_reset_all)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
-    std::string path =
-        "./test-ressources/.cpad_medium_test1";
+    std::string path = "./test-ressources/.cpad_medium_test1";
 
     auto map = Convertor::instance().read(path1);
 
     std::string parent_folder = ".";
     Convertor::instance().reset_all(map);
     Convertor::instance().write(map, path);
-
 
     ASSERT_EQ(map.size(), 2);
 
@@ -331,5 +308,4 @@ TEST(convertor, write_reset_all)
 
     ASSERT_TRUE(map.find("git commands") != map.end());
     ASSERT_EQ(map["git commands"].get_elements().size(), 0);
-
 }

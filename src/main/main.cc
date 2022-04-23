@@ -4,8 +4,8 @@
 #include <iostream>
 
 #include "../convertor.hh"
-#include "../executor.hh"
 #include "../display.hh"
+#include "../executor.hh"
 
 void args_count_check(int argc)
 {
@@ -31,6 +31,7 @@ void command_launcher(std::map<std::string, Folder> &map,
                       std::string &command_name)
 {
     bool is_folder = false;
+    std::string last_directory;
     do
     {
         Display::instance().display(current_folder, map);
@@ -44,12 +45,20 @@ void command_launcher(std::map<std::string, Folder> &map,
             continue;
 
         size_t command_number = std::stoi(command_input);
+
         if (command_number > elements.size())
+        {
+            if (command_number == elements.size() + 1 && current_folder != ".")
+                current_folder = last_directory;
             continue;
+        }
 
         command_name = elements[command_number - 1].get_name();
         if (elements[command_number - 1].get_is_folder())
+        {
+            last_directory = current_folder;
             current_folder = command_name;
+        }
 
         is_folder = elements[command_number - 1].get_is_folder();
 
