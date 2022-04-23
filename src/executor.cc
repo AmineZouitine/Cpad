@@ -10,10 +10,10 @@
 #define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
 #define YELLOW "\033[33m" /* Yellow */
 
-bool Executor::execute(std::string &command_name, bool is_folder)
+bool Executor::execute(std::string &command_name, bool skip_execution)
 {
     system("clear");
-    if (!is_folder)
+    if (!skip_execution)
     {
         std::cout << "\n\nExecution of -- " << BOLDGREEN << command_name
                   << RESET << std::endl;

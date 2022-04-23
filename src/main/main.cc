@@ -30,7 +30,7 @@ void command_launcher(std::map<std::string, Folder> &map,
                       std::string &command_input, std::string &current_folder,
                       std::string &command_name)
 {
-    bool is_folder = false;
+    bool skip_execute = false;
     std::string last_directory;
     do
     {
@@ -46,10 +46,11 @@ void command_launcher(std::map<std::string, Folder> &map,
 
         size_t command_number = std::stoi(command_input);
 
-        if (command_number > elements.size())
+        if (command_number > elements.size() || command_number < 1)
         {
             if (command_number == elements.size() + 1 && current_folder != ".")
                 current_folder = last_directory;
+            skip_execute = true;
             continue;
         }
 
@@ -60,10 +61,10 @@ void command_launcher(std::map<std::string, Folder> &map,
             current_folder = command_name;
         }
 
-        is_folder = elements[command_number - 1].get_is_folder();
+        skip_execute = elements[command_number - 1].get_is_folder();
 
     } while (command_input != "q"
-             && Executor::instance().execute(command_name, is_folder));
+             && Executor::instance().execute(command_name, skip_execute));
 }
 
 int main(int argc, char **)
