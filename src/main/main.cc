@@ -1,13 +1,15 @@
 #include <algorithm>
+#include <cstddef>
 #include <ctype.h>
 #include <fstream>
 #include <iostream>
 #include <stack>
+#include <string>
 
+#include "../arguments.hh"
 #include "../convertor.hh"
 #include "../display.hh"
 #include "../executor.hh"
-
 
 void args_count_check(int argc)
 {
@@ -73,19 +75,63 @@ void command_launcher(std::map<std::string, Folder> &map,
              && Executor::instance().execute(command_name, skip_execute));
 }
 
-int main(int argc, char **)
+void parse_arg(int argc, char **argv, std::map<std::string, Folder> &map, std::string &path)
 {
-    args_count_check(argc);
+    if (argv[1] == "-ac")
+        parse_cmd(argc, argv, map, path);
+    else if (argv[1] == "-af")
+        parse_folder(argc, argv);
 
-    std::ifstream json_file;
+    else
+    {
+        std::cerr << "Invalid argument: " << argv[1] << "\n";
+        exit(1);
+    }
+}
+
+void parse_cmd(int argc, char **argv, std::map<std::string, Folder> &map, std::string &path)
+{
+    std::string folder;
+    std::string command;
+    if (argv[argc - 1][0] == '[')
+        folder =
+            argv[argc - 1].substr(1, argv[argc - 1].length() - 2) else folder =
+                ".";
+    for (size_t i = 2; i < argc; i++)
+    {
+        command += argv[i];
+    }
+    Convertor::instance().add_command(map, folder, command);
+    Convertor::instance().write(map, path);
+}
+
+std::string bracket_less(std::string &str)
+{
+    std::string res;
+    for (size_t i = 1; i < str.length() - 1; i++)
+    {
+        res.append(str[i]);
+    }
+    return res;
+}
+
+int main(int argc, char **argv)
+{
     std::string home_path = std::string(getenv("HOME")) + "/.cpad";
-
+    std::ifstream json_file;
     home_file_check(json_file, home_path);
-
     auto map = Convertor::instance().read(home_path);
-    std::string command_input;
-    std::string command_name;
-    std::string current_folder = ".";
+    if (argc != 1)
+    {
+        parse_arg(argc, argv, home_path);
+    }
+    // args_count_check(argc);
+    else
+    {
+        std::string command_input;
+        std::string command_name;
+        std::string current_folder = ".";
 
-    command_launcher(map, command_input, current_folder, command_name);
+        command_launcher(map, command_input, current_folder, command_name);
+    }
 }
