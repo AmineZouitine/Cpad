@@ -5,20 +5,12 @@
 #include <iostream>
 #include <stack>
 #include <string>
+#include <cstring>
 
 #include "../arguments.hh"
 #include "../convertor.hh"
 #include "../display.hh"
 #include "../executor.hh"
-
-void args_count_check(int argc)
-{
-    if (argc != 1)
-    {
-        std::cout << "Le main ne prend aucun argument" << '\n';
-        exit(1);
-    }
-}
 
 void home_file_check(std::ifstream &json_file, std::string &home_path)
 {
@@ -75,46 +67,6 @@ void command_launcher(std::map<std::string, Folder> &map,
              && Executor::instance().execute(command_name, skip_execute));
 }
 
-void parse_arg(int argc, char **argv, std::map<std::string, Folder> &map, std::string &path)
-{
-    if (argv[1] == "-ac")
-        parse_cmd(argc, argv, map, path);
-    else if (argv[1] == "-af")
-        parse_folder(argc, argv);
-
-    else
-    {
-        std::cerr << "Invalid argument: " << argv[1] << "\n";
-        exit(1);
-    }
-}
-
-void parse_cmd(int argc, char **argv, std::map<std::string, Folder> &map, std::string &path)
-{
-    std::string folder;
-    std::string command;
-    if (argv[argc - 1][0] == '[')
-        folder =
-            argv[argc - 1].substr(1, argv[argc - 1].length() - 2) else folder =
-                ".";
-    for (size_t i = 2; i < argc; i++)
-    {
-        command += argv[i];
-    }
-    Convertor::instance().add_command(map, folder, command);
-    Convertor::instance().write(map, path);
-}
-
-std::string bracket_less(std::string &str)
-{
-    std::string res;
-    for (size_t i = 1; i < str.length() - 1; i++)
-    {
-        res.append(str[i]);
-    }
-    return res;
-}
-
 int main(int argc, char **argv)
 {
     std::string home_path = std::string(getenv("HOME")) + "/.cpad";
@@ -122,10 +74,7 @@ int main(int argc, char **argv)
     home_file_check(json_file, home_path);
     auto map = Convertor::instance().read(home_path);
     if (argc != 1)
-    {
-        parse_arg(argc, argv, home_path);
-    }
-    // args_count_check(argc);
+        parse_arg(argc, argv, map, home_path);
     else
     {
         std::string command_input;
