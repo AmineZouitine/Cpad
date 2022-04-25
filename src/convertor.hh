@@ -20,5 +20,4 @@ public:
     void remove_folder(std::map<std::string, Folder> &map, std::string &key);
     void reset_folder(std::map<std::string, Folder> &map, std::string &key);
     void reset_all(std::map<std::string, Folder> &map);
-    
 };

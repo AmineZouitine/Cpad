@@ -126,5 +126,3 @@ void Convertor::add_folder(std::map<std::string, Folder> &map, std::string &key,
     map[key].get_elements().push_back(Element(folder_name));
     map.insert({ folder_name, Folder() });
 }
-
-

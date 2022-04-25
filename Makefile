@@ -15,5 +15,5 @@ check: test
 	./test
 
 clean:
-	${RM} test main
+	${RM} test cpad 
 .PHONY: main check test clean

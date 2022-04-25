@@ -1,10 +1,10 @@
 #pragma once
 
-#include <string>
 #include <map>
+#include <string>
 
-#include "singleton.hh"
 #include "folder.hh"
+#include "singleton.hh"
 
 class Executor : public Singleton<Executor>
 {
@@ -20,7 +20,7 @@ public:
         MOVE_FOLDER,
         NONE
     };
-    bool execute(std::string &command_name, Executor::ExecutionType& exec_type);
+    bool execute(std::string &command_name, Executor::ExecutionType &exec_type);
     void command_launcher(std::map<std::string, Folder> &map,
                           std::string &home_path);
 };

@@ -1,11 +1,12 @@
 #include "executor.hh"
-#include "display.hh"
-#include "arguments.hh"
 
 #include <iostream>
 #include <memory>
 #include <stack>
 #include <stdlib.h>
+
+#include "arguments.hh"
+#include "display.hh"
 
 #define RESET "\033[0m"
 #define BOLDBLUE "\033[1m\033[34m" /* Bold Blue */
@@ -27,8 +28,8 @@ bool Executor::execute(std::string &command_name,
         std::cout << "---\n\n";
         break;
     case Executor::ExecutionType::FOLDER:
-        std::cout << "\n\nCreation of -- " << BOLDGREEN << command_name
-                  << RESET << std::endl;
+        std::cout << "\n\nCreation of -- " << BOLDGREEN << command_name << RESET
+                  << std::endl;
         break;
     case Executor::ExecutionType::CREATE_COMMAND:
         break;
