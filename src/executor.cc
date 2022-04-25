@@ -18,45 +18,53 @@ bool Executor::execute(std::string &command_name,
                        Executor::ExecutionType &exec_type)
 {
     system("clear");
+    std::string display_line;
     switch (exec_type)
     {
     case Executor::ExecutionType::COMMAND:
-        std::cout << "\n\nExecution of -- " << BOLDGREEN << command_name
-                  << RESET << std::endl;
+        std::cout << "Execution of -- " << BOLDGREEN << command_name << RESET
+                  << std::endl;
         std::cout << "---\n";
         system(command_name.c_str());
         std::cout << "---\n\n";
-        break;
+        return true;
     case Executor::ExecutionType::FOLDER:
-        std::cout << "\n\nCreation of -- " << BOLDGREEN << command_name << RESET
-                  << std::endl;
+        display_line = "Creation of folder -- ";
         break;
     case Executor::ExecutionType::CREATE_COMMAND:
+        display_line = "Creation of command -- ";
         break;
     case Executor::ExecutionType::CREATE_FOLDER:
+        display_line = "Creation of folder -- ";
         break;
     case Executor::ExecutionType::DELETE_COMMAND:
+        display_line = "Deletion of command -- ";
         break;
     case Executor::ExecutionType::DELETE_FOLDER:
+        display_line = "Deletion of folder -- ";
         break;
     case Executor::ExecutionType::MOVE_FOLDER:
+        display_line = "You move into the folder -- ";
         break;
     default:
-        break;
+        return true;
     }
+    std::cout << display_line << BOLDGREEN << command_name << RESET << '\n'
+              << std::endl;
     return true;
 }
 
-void command_launcher(std::map<std::string, Folder> &map,
-                      std::string &home_path)
+void Executor::command_launcher(std::map<std::string, Folder> &map,
+                                std::string &home_path)
 {
-    Executor::ExecutionType exec_type = Executor::ExecutionType::NONE;
     std::string command_input;
     std::string command_name;
     std::string current_folder = ".";
     std::stack<std::string> last_folders;
+    Executor::ExecutionType exec_type;
     do
     {
+        exec_type = Executor::ExecutionType::NONE;
         Display::instance().display(current_folder, map);
         auto elements = map[current_folder].get_elements();
 
@@ -68,9 +76,9 @@ void command_launcher(std::map<std::string, Folder> &map,
             std::string str = command_input.substr(0, 3);
             if (is_command(str))
             {
-                // system("clear");
                 parse_arg(command_input, map, current_folder, home_path,
                           exec_type);
+                command_name = command_input;
             }
             continue;
         }
@@ -82,9 +90,10 @@ void command_launcher(std::map<std::string, Folder> &map,
             if (command_number == elements.size() + 1 && current_folder != ".")
             {
                 current_folder = last_folders.top();
+                command_name = current_folder;
+                exec_type = Executor::ExecutionType::MOVE_FOLDER;
                 last_folders.pop();
             }
-            exec_type = Executor::ExecutionType::MOVE_FOLDER;
             continue;
         }
 
@@ -95,7 +104,7 @@ void command_launcher(std::map<std::string, Folder> &map,
             current_folder = command_name;
         }
         exec_type = elements[command_number - 1].get_is_folder()
-            ? Executor::ExecutionType::FOLDER
+            ? Executor::ExecutionType::MOVE_FOLDER
             : Executor::ExecutionType::COMMAND;
 
     } while (command_input != "q"

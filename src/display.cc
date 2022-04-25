@@ -9,7 +9,6 @@
 
 void Display::display(std::string &key, std::map<std::string, Folder> &map)
 {
-    // HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     std::cout << "Current folder : " << BOLDGREEN << key << std::endl
               << std::endl;
     std::cout << RESET;
@@ -28,7 +27,6 @@ void Display::display(std::string &key, std::map<std::string, Folder> &map)
     }
     if (key != ".")
         std::cout << BOLDGREEN << elms.size() + 1 << "- .." << std::endl;
-    // std::cout << RED << "e- edit" << std::endl;
     std::cout << YELLOW << "q- quit" << std::endl;
     std::cout << RESET;
     std::cout << std::endl;
