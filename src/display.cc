@@ -5,6 +5,8 @@
 #define BOLDRED "\033[1m\033[31m" /* Bold Red */
 #define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
 #define YELLOW "\033[33m" /* Yellow */
+#define RED "\033[31m" /* RED */
+
 
 void Display::display(std::string &key, std::map<std::string, Folder> &map)
 {
@@ -27,6 +29,7 @@ void Display::display(std::string &key, std::map<std::string, Folder> &map)
     }
     if (key != ".")
         std::cout << BOLDGREEN << elms.size() + 1 << "- .." << std::endl;
+    //std::cout << RED << "e- edit" << std::endl;
     std::cout << YELLOW << "q- quit" << std::endl;
     std::cout << RESET;
     std::cout << std::endl;
