@@ -5,7 +5,7 @@ OBJS= $(wildcard src/*.cc)
 MAIN_OBJ= src/main/main.cc
 TEST_OBJS= $(wildcard tests/*.cc) 
 
-main: ${OBJS} ${MAIN_OBJ}
+cpad: ${OBJS} ${MAIN_OBJ}
 	${CXX} -o $@ $^ ${CXXFLAGS}
 
 test: ${TEST_OBJS} ${OBJS}
@@ -15,5 +15,5 @@ check: test
 	./test
 
 clean:
-	${RM} test main
+	${RM} test cpad 
 .PHONY: main check test clean

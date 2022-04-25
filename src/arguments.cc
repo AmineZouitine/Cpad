@@ -51,12 +51,12 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
                std::string &key, std::string &home_path,
                Executor::ExecutionType &exec_type)
 {
-    std::cout << arg;
     std::stringstream ss(arg);
     std::string token;
     std::string cmd_argument;
     ss >> token;
     concat_argument(ss, token, cmd_argument);
+    arg = cmd_argument;
     if (token == "-ac")
     {
         exec_type = Executor::ExecutionType::CREATE_COMMAND;
