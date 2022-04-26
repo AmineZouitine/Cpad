@@ -7,7 +7,11 @@ COMMAND ls
 CURRENT git commands
 COMMAND git add *
 COMMAND git status
+FOLDER OUI
 --STOP--
 CURRENT test
 COMMAND echo coucou
+--STOP--
+CURRENT OUI
+COMMAND echo nice
 --STOP--
