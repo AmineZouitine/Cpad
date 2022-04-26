@@ -4,6 +4,7 @@
 #include <memory>
 #include <stack>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "arguments.hh"
 #include "display.hh"
@@ -19,6 +20,21 @@
 #define GREEN "\033[0m\033[32m" /*Green */
 #define YELLOW "\033[33m" /* Yellow */
 
+bool cd_exec(std::string command)
+{
+    std::stringstream ss(command);
+    std::string token;
+    ss >> token;
+    if (token == "cd")
+    {
+        std::string cmd_argument;
+        concat_argument(ss, token, cmd_argument);
+        chdir(cmd_argument.c_str());
+        return true;
+    }
+    return false;
+}
+
 bool Executor::execute(std::string &command_name,
                        Executor::ExecutionType &exec_type)
 {
@@ -30,7 +46,8 @@ bool Executor::execute(std::string &command_name,
         std::cout << "Execution of -- " << BOLDGREEN << command_name << RESET
                   << std::endl;
         std::cout << "---\n";
-        system(command_name.c_str());
+        if (!cd_exec(command_name))
+            system(command_name.c_str());
         std::cout << "---\n\n";
         return true;
     case Executor::ExecutionType::CREATE_COMMAND:
@@ -83,8 +100,17 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
 
         std::cout << "Choose your command -> ";
         std::getline(std::cin, command_input);
+
         if (command_input.empty())
             continue;
+        if (command_input == "h")
+        {
+            system("clear");
+            Display::instance().display_helper();
+            std::cout << "Choose your command -> ";
+            std::getline(std::cin, command_input);
+        }
+      
         if (!std::all_of(command_input.cbegin(), command_input.cend(),
                          ::isdigit))
         {
@@ -105,7 +131,15 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
             continue;
         }
 
-        size_t command_number = std::stoi(command_input);
+        size_t command_number;
+        try
+        {
+            command_number = std::stoi(command_input);
+        }
+        catch (...)
+        {
+            continue;
+        }
 
         if (command_number > elements.size() || command_number < 1)
             continue;

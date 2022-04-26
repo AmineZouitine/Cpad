@@ -282,7 +282,6 @@ TEST(convertor, write_reset_folder)
 
     ASSERT_TRUE(map.find(".") != map.end());
     ASSERT_EQ(map["."].get_elements().size(), 0);
-
 }
 
 TEST(convertor, write_reset_all)
@@ -300,5 +299,4 @@ TEST(convertor, write_reset_all)
 
     ASSERT_TRUE(map.find(".") != map.end());
     ASSERT_EQ(map["."].get_elements().size(), 0);
-
 }
