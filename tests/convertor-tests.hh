@@ -278,16 +278,11 @@ TEST(convertor, write_reset_folder)
     Convertor::instance().reset_folder(map, parent_folder);
     Convertor::instance().write(map, path);
 
-    ASSERT_EQ(map.size(), 2);
+    ASSERT_EQ(map.size(), 1);
 
     ASSERT_TRUE(map.find(".") != map.end());
     ASSERT_EQ(map["."].get_elements().size(), 0);
 
-    ASSERT_TRUE(map.find("git commands") != map.end());
-    ASSERT_EQ(map["git commands"].get_elements().size(), 1);
-
-    ASSERT_FALSE(map["git commands"].get_elements()[0].get_is_folder());
-    ASSERT_EQ(map["git commands"].get_elements()[0].get_name(), "git add *");
 }
 
 TEST(convertor, write_reset_all)
@@ -301,11 +296,9 @@ TEST(convertor, write_reset_all)
     Convertor::instance().reset_all(map);
     Convertor::instance().write(map, path);
 
-    ASSERT_EQ(map.size(), 2);
+    ASSERT_EQ(map.size(), 1);
 
     ASSERT_TRUE(map.find(".") != map.end());
     ASSERT_EQ(map["."].get_elements().size(), 0);
 
-    ASSERT_TRUE(map.find("git commands") != map.end());
-    ASSERT_EQ(map["git commands"].get_elements().size(), 0);
 }
