@@ -48,6 +48,14 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
     if (token == "-ac")
     {
         concat_argument(ss, token, cmd_argument);
+        for (auto elm : map[key].get_elements())
+        {
+            if (elm.get_name() == cmd_argument)
+            {
+                exec_type = Executor::ExecutionType::COMMAND_ERROR_NAME;
+                return;
+            }
+        }
         arg = cmd_argument;
         exec_type = Executor::ExecutionType::CREATE_COMMAND;
         Convertor::instance().add_command(map, key, cmd_argument);
@@ -55,6 +63,14 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
     else if (token == "-af")
     {
         concat_argument(ss, token, cmd_argument);
+        for (auto elm : map[key].get_elements())
+        {
+            if (elm.get_name() == cmd_argument)
+            {
+                exec_type = Executor::ExecutionType::FOLDER_ERROR_NAME;
+                return;
+            }
+        }
         arg = cmd_argument;
         exec_type = Executor::ExecutionType::CREATE_FOLDER;
         Convertor::instance().add_folder(map, key, cmd_argument);

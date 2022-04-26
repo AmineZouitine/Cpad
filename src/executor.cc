@@ -10,11 +10,15 @@
 #include "display.hh"
 
 #define RESET "\033[0m"
+#define BOLD "\033[1m"
+#define WHITE "\033[37m"
 #define BOLDBLUE "\033[1m\033[34m" /* Bold Blue */
 #define BOLDRED "\033[1m\033[31m" /* Bold Red */
-#define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
-#define YELLOW "\033[33m" /* Yellow */
+#define UNDERBOLDRED "\033[4m\033[1m\033[31m" /* Underligned Bold Red */
 #define RED "\033[31m" /* RED */
+#define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
+#define GREEN "\033[0m\033[32m" /*Green */
+#define YELLOW "\033[33m" /* Yellow */
 
 bool cd_exec(std::string command)
 {
@@ -46,31 +50,36 @@ bool Executor::execute(std::string &command_name,
             system(command_name.c_str());
         std::cout << "---\n\n";
         return true;
-    case Executor::ExecutionType::FOLDER:
-        display_line = "Creation of folder -- ";
-        break;
     case Executor::ExecutionType::CREATE_COMMAND:
-        display_line = "Creation of command -- ";
+        display_line =
+            BOLDGREEN + std::string("✔️ ") + "Creation of command:";
         break;
     case Executor::ExecutionType::CREATE_FOLDER:
-        display_line = "Creation of folder -- ";
+        display_line =
+            BOLDGREEN + std::string("✔️ ") + "Creation of folder:";
         break;
     case Executor::ExecutionType::DELETE_COMMAND:
-        display_line = "Deletion of command -- ";
+        display_line = "Deletion of command:";
         break;
     case Executor::ExecutionType::DELETE_FOLDER:
-        display_line = "Deletion of folder -- ";
+        display_line = "Deletion of folder:";
         break;
     case Executor::ExecutionType::MOVE_FOLDER:
-        display_line = "You move into the folder -- ";
+        display_line = "You move into the folder:";
         break;
-    case Executor::ExecutionType::ERROR_NAME:
-        display_line = RED + std::string("You can't add same name twice -- ");
+    case Executor::ExecutionType::COMMAND_ERROR_NAME:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("You can't add same command twice:");
+        break;
+    case Executor::ExecutionType::FOLDER_ERROR_NAME:
+        display_line = BOLDRED + std::string("✖️ ") + BOLDRED
+            + std::string("You can't add same folder twice:");
         break;
     default:
         return true;
     }
-    std::cout << display_line << BOLDGREEN << command_name << RESET << '\n'
+    std::cout << RESET << display_line << RESET << WHITE << ' '
+              << command_name << RESET << '\n'
               << std::endl;
     return true;
 }
@@ -91,6 +100,9 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
 
         std::cout << "Choose your command -> ";
         std::getline(std::cin, command_input);
+
+        if (command_input.empty())
+            continue;
         if (command_input == "h")
         {
             system("clear");
@@ -98,6 +110,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
             std::cout << "Choose your command -> ";
             std::getline(std::cin, command_input);
         }
+      
         if (!std::all_of(command_input.cbegin(), command_input.cend(),
                          ::isdigit))
         {
