@@ -12,7 +12,6 @@ public:
     enum class ExecutionType
     {
         COMMAND,
-        FOLDER,
         CREATE_COMMAND,
         DELETE_COMMAND,
         CREATE_FOLDER,
@@ -20,7 +19,8 @@ public:
         MOVE_FOLDER,
         RESET_FOLDER,
         RESET_ALL,
-        ERROR_NAME,
+        COMMAND_ERROR_NAME,
+        FOLDER_ERROR_NAME,
         NONE
     };
     bool execute(std::string &command_name, Executor::ExecutionType &exec_type);
