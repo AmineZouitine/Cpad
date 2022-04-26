@@ -48,6 +48,11 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
     if (token == "-ac")
     {
         concat_argument(ss, token, cmd_argument);
+        if (cmd_argument.empty())
+        {
+            exec_type = Executor::ExecutionType::EMPTY_NAME;
+            return;
+        }
         for (auto elm : map[key].get_elements())
         {
             if (elm.get_name() == cmd_argument)
@@ -63,6 +68,11 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
     else if (token == "-af")
     {
         concat_argument(ss, token, cmd_argument);
+        if (cmd_argument.empty())
+        {
+            exec_type = Executor::ExecutionType::EMPTY_NAME;
+            return;
+        }
         for (auto elm : map[key].get_elements())
         {
             if (elm.get_name() == cmd_argument)

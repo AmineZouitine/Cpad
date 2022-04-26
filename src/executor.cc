@@ -72,14 +72,20 @@ bool Executor::execute(std::string &command_name,
             + std::string("You can't add same command twice:");
         break;
     case Executor::ExecutionType::FOLDER_ERROR_NAME:
-        display_line = BOLDRED + std::string("✖️ ") + BOLDRED
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
             + std::string("You can't add same folder twice:");
+        break;
+    case Executor::ExecutionType::EMPTY_NAME:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("You can't add empty name.") + RESET
+            + std::string(" 👻");
+        command_name = "";
         break;
     default:
         return true;
     }
-    std::cout << RESET << display_line << RESET << WHITE << ' '
-              << command_name << RESET << '\n'
+    std::cout << RESET << display_line << RESET << WHITE << ' ' << command_name
+              << RESET << '\n'
               << std::endl;
     return true;
 }
@@ -110,7 +116,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
             std::cout << "Choose your command -> ";
             std::getline(std::cin, command_input);
         }
-      
+
         if (!std::all_of(command_input.cbegin(), command_input.cend(),
                          ::isdigit))
         {
