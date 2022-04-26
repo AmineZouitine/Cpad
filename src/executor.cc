@@ -4,6 +4,7 @@
 #include <memory>
 #include <stack>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "arguments.hh"
 #include "display.hh"
@@ -15,6 +16,21 @@
 #define YELLOW "\033[33m" /* Yellow */
 #define RED "\033[31m" /* RED */
 
+bool cd_exec(std::string command)
+{
+    std::stringstream ss(command);
+    std::string token;
+    ss >> token;
+    if (token == "cd")
+    {
+        std::string cmd_argument;
+        concat_argument(ss, token, cmd_argument);
+        chdir(cmd_argument.c_str());
+        return true;
+    }
+    return false;
+}
+
 bool Executor::execute(std::string &command_name,
                        Executor::ExecutionType &exec_type)
 {
@@ -22,14 +38,12 @@ bool Executor::execute(std::string &command_name,
     std::string display_line;
     switch (exec_type)
     {
-    // case Executor::ExecutionType::HELPER:
-    //     display_line = "Helper page -- ";
-    //     return true;
     case Executor::ExecutionType::COMMAND:
         std::cout << "Execution of -- " << BOLDGREEN << command_name << RESET
                   << std::endl;
         std::cout << "---\n";
-        system(command_name.c_str());
+        if (!cd_exec(command_name))
+            system(command_name.c_str());
         std::cout << "---\n\n";
         return true;
     case Executor::ExecutionType::FOLDER:
@@ -60,11 +74,6 @@ bool Executor::execute(std::string &command_name,
               << std::endl;
     return true;
 }
-
-// void helper()
-// {
-//     std::cout << "123" << std::endl;
-// }
 
 void Executor::command_launcher(std::map<std::string, Folder> &map,
                                 std::string &home_path)
@@ -108,12 +117,16 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
             }
             continue;
         }
-        // else
-        // {
-        //     exec_type = Executor::ExecutionType::HELPER;            
-        // }
 
-        size_t command_number = std::stoi(command_input);
+        size_t command_number;
+        try
+        {
+            command_number = std::stoi(command_input);
+        }
+        catch (...)
+        {
+            continue;
+        }
 
         if (command_number > elements.size() || command_number < 1)
             continue;
