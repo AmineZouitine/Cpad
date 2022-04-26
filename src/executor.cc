@@ -91,7 +91,13 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
 
         std::cout << "Choose your command -> ";
         std::getline(std::cin, command_input);
-
+        if (command_input == "h")
+        {
+            system("clear");
+            Display::instance().display_helper();
+            std::cout << "Choose your command -> ";
+            std::getline(std::cin, command_input);
+        }
         if (!std::all_of(command_input.cbegin(), command_input.cend(),
                          ::isdigit))
         {
@@ -111,6 +117,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
             }
             continue;
         }
+
         size_t command_number;
         try
         {
