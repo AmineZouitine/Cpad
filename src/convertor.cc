@@ -88,36 +88,51 @@ void Convertor::remove_command(std::map<std::string, Folder> &map,
                                   + command_number - 1);
 }
 
-void Convertor::remove_folder(std::map<std::string, Folder> &map,
-                              std::string &key)
+void Convertor::get_all_folders(std::map<std::string, Folder> &map,
+                                std::string &key,
+                                std::vector<std::string> &folders_name)
 {
-    for (auto &folder : map)
+    for (auto &elem : map[key].get_elements())
     {
-        for (size_t i = 0; i < folder.second.get_elements().size(); i++)
+        if (elem.get_is_folder())
         {
-            auto elem = folder.second.get_elements()[i];
-            if (elem.get_is_folder() && elem.get_name() == key)
-            {
-                std::string folder_name = folder.first;
-                remove_command(map, folder_name, i + 1);
-            }
+            folders_name.push_back(elem.get_name());
+            get_all_folders(map, elem.get_name(), folders_name);
         }
     }
-    map.erase(key);
+}
+
+void Convertor::remove_folder(std::map<std::string, Folder> &map,
+                              std::string &current_folder,
+                              std::string &folder_name)
+{
+    std::vector<std::string> folders_name;
+    get_all_folders(map, folder_name, folders_name);
+    for (auto &elem : folders_name)
+        map.erase(elem);
+    for (size_t i = 0; i < map[current_folder].get_elements().size(); i++)
+    {
+        auto elem = map[current_folder].get_elements()[i];
+        if (elem.get_is_folder() && elem.get_name() == folder_name)
+            remove_command(map, current_folder, i + 1);
+    }
+    map.erase(folder_name);
 }
 
 void Convertor::reset_folder(std::map<std::string, Folder> &map,
                              std::string &key)
 {
+    std::vector<std::string> folders_name;
+    get_all_folders(map, key, folders_name);
+    for (auto &elem : folders_name)
+        map.erase(elem);
     map[key].get_elements().clear();
 }
 
 void Convertor::reset_all(std::map<std::string, Folder> &map)
 {
-    for (auto &folder : map)
-    {
-        folder.second.get_elements().clear();
-    }
+    std::string source = ".";
+    reset_folder(map, source);
 }
 
 void Convertor::add_folder(std::map<std::string, Folder> &map, std::string &key,

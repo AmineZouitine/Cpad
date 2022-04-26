@@ -18,6 +18,9 @@ public:
         CREATE_FOLDER,
         DELETE_FOLDER,
         MOVE_FOLDER,
+        RESET_FOLDER,
+        RESET_ALL,
+        ERROR_NAME,
         NONE
     };
     bool execute(std::string &command_name, Executor::ExecutionType &exec_type);

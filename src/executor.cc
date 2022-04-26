@@ -13,6 +13,7 @@
 #define BOLDRED "\033[1m\033[31m" /* Bold Red */
 #define BOLDGREEN "\033[1m\033[32m" /* Bold Green */
 #define YELLOW "\033[33m" /* Yellow */
+#define RED "\033[31m" /* RED */
 
 bool Executor::execute(std::string &command_name,
                        Executor::ExecutionType &exec_type)
@@ -45,6 +46,9 @@ bool Executor::execute(std::string &command_name,
         break;
     case Executor::ExecutionType::MOVE_FOLDER:
         display_line = "You move into the folder -- ";
+        break;
+    case Executor::ExecutionType::ERROR_NAME:
+        display_line = RED + std::string("You can't add same name twice -- ");
         break;
     default:
         return true;
@@ -80,14 +84,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
                           exec_type);
                 command_name = command_input;
             }
-            continue;
-        }
-
-        size_t command_number = std::stoi(command_input);
-
-        if (command_number > elements.size() || command_number < 1)
-        {
-            if (command_number == elements.size() + 1 && current_folder != ".")
+            else if (current_folder != "." && command_input == "b")
             {
                 current_folder = last_folders.top();
                 command_name = current_folder;
@@ -96,6 +93,11 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
             }
             continue;
         }
+
+        size_t command_number = std::stoi(command_input);
+
+        if (command_number > elements.size() || command_number < 1)
+            continue;
 
         command_name = elements[command_number - 1].get_name();
         if (elements[command_number - 1].get_is_folder())

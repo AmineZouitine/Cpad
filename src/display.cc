@@ -25,9 +25,12 @@ void Display::display(std::string &key, std::map<std::string, Folder> &map)
         std::cout << RESET;
         i++;
     }
+    std::cout << BOLDGREEN << "---" << std::endl;
     if (key != ".")
-        std::cout << BOLDGREEN << elms.size() + 1 << "- .." << std::endl;
-    std::cout << YELLOW << "q- quit" << std::endl;
+        std::cout << "b- .." << std::endl;
+    std::cout << YELLOW << "h- help" << std::endl;
+
+    std::cout << RED << "q- quit" << std::endl;
     std::cout << RESET;
     std::cout << std::endl;
 }

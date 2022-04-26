@@ -240,7 +240,7 @@ TEST(convertor, write_remove_folder)
     std::string parent_folder = ".";
     std::string folder_name = "New folder";
     Convertor::instance().add_folder(map, parent_folder, folder_name);
-    Convertor::instance().remove_folder(map, folder_name);
+    Convertor::instance().remove_folder(map, parent_folder, folder_name);
     Convertor::instance().write(map, path);
 
     ASSERT_EQ(map.size(), 2);

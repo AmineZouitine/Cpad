@@ -18,7 +18,12 @@ public:
                     std::string &folder_name);
     void remove_command(std::map<std::string, Folder> &map, std::string &key,
                         size_t command);
-    void remove_folder(std::map<std::string, Folder> &map, std::string &key);
+    void remove_folder(std::map<std::string, Folder> &map,
+                       std::string &current_folder, std::string &folder_name);
     void reset_folder(std::map<std::string, Folder> &map, std::string &key);
     void reset_all(std::map<std::string, Folder> &map);
+
+private:
+    void get_all_folders(std::map<std::string, Folder> &map, std::string &key,
+                         std::vector<std::string> &folders_name);
 };
