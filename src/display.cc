@@ -20,7 +20,7 @@ void Display::display(std::string &key, std::map<std::string, Folder> &map)
     {
         if (elm.get_is_folder())
             std::cout << BOLD << std::to_string(i) << RESET << " ➜ " << BOLDBLUE
-                      << elm.get_name() << " 🗂 " << std::endl;
+                      << elm.get_name() << " 📁 " << std::endl;
         else
             std::cout << BOLD << std::to_string(i) << RESET << " ➜ "
                       << elm.get_name() << std::endl;

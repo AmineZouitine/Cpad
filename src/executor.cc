@@ -43,7 +43,7 @@ bool Executor::execute(std::string &command_name,
     switch (exec_type)
     {
     case Executor::ExecutionType::COMMAND:
-        std::cout << "Execution of -- " << BOLDGREEN << command_name << RESET
+        std::cout <<  BOLDGREEN + std::string("🔧 ") + "Execution of: "  << RESET <<  command_name
                   << std::endl;
         std::cout << "---\n";
         if (!cd_exec(command_name))
@@ -59,13 +59,13 @@ bool Executor::execute(std::string &command_name,
             BOLDGREEN + std::string("✔️ ") + "Creation of folder:";
         break;
     case Executor::ExecutionType::DELETE_COMMAND:
-        display_line = "Deletion of command:";
+        display_line = BOLDGREEN + std::string("✔️ ") +"Deletion of command:";
         break;
     case Executor::ExecutionType::DELETE_FOLDER:
-        display_line = "Deletion of folder:";
+        display_line = BOLDGREEN + std::string("✔️ ") + "Deletion of folder:";
         break;
     case Executor::ExecutionType::MOVE_FOLDER:
-        display_line = "You move into the folder:";
+        display_line = BOLDGREEN + std::string("✔️ ") + "You move into the folder:";
         break;
     case Executor::ExecutionType::COMMAND_ERROR_NAME:
         display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
@@ -104,7 +104,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
         Display::instance().display(current_folder, map);
         auto elements = map[current_folder].get_elements();
 
-        std::cout << "Choose your command -> ";
+        std::cout << "Choose your command ➜ ";
         std::getline(std::cin, command_input);
 
         if (command_input.empty())
@@ -113,7 +113,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
         {
             system("clear");
             Display::instance().display_helper();
-            std::cout << "Choose your command -> ";
+            std::cout << "Choose your command ➜ ";
             std::getline(std::cin, command_input);
         }
 
