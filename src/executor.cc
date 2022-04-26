@@ -22,6 +22,9 @@ bool Executor::execute(std::string &command_name,
     std::string display_line;
     switch (exec_type)
     {
+    // case Executor::ExecutionType::HELPER:
+    //     display_line = "Helper page -- ";
+    //     return true;
     case Executor::ExecutionType::COMMAND:
         std::cout << "Execution of -- " << BOLDGREEN << command_name << RESET
                   << std::endl;
@@ -58,6 +61,11 @@ bool Executor::execute(std::string &command_name,
     return true;
 }
 
+// void helper()
+// {
+//     std::cout << "123" << std::endl;
+// }
+
 void Executor::command_launcher(std::map<std::string, Folder> &map,
                                 std::string &home_path)
 {
@@ -74,6 +82,13 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
 
         std::cout << "Choose your command -> ";
         std::getline(std::cin, command_input);
+        if (command_input == "h")
+        {
+            system("clear");
+            Display::instance().display_helper();
+            std::cout << "Choose your command -> ";
+            std::getline(std::cin, command_input);
+        }
         if (!std::all_of(command_input.cbegin(), command_input.cend(),
                          ::isdigit))
         {
@@ -93,6 +108,10 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
             }
             continue;
         }
+        // else
+        // {
+        //     exec_type = Executor::ExecutionType::HELPER;            
+        // }
 
         size_t command_number = std::stoi(command_input);
 
