@@ -55,8 +55,12 @@ bool Executor::execute(std::string &command_name,
             + std::string("You can't add same command twice:");
         break;
     case Executor::ExecutionType::FOLDER_ERROR_NAME:
-        display_line = BOLDRED + std::string("✖️ ") + BOLDRED
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
             + std::string("You can't add same folder twice:");
+        break;
+    case Executor::ExecutionType::EMPTY_NAME:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("You can't add this without a non-empty name.");
         break;
     default:
         return true;
