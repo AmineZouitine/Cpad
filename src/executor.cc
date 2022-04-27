@@ -29,6 +29,8 @@ bool cd_exec(std::string command)
     {
         std::string cmd_argument;
         concat_argument(ss, token, cmd_argument);
+        if (cmd_argument.empty())
+            cmd_argument = std::string(getenv("HOME"));
         chdir(cmd_argument.c_str());
         return true;
     }
