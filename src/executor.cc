@@ -137,6 +137,28 @@ bool Executor::execute(std::string &command_name,
             execute(command.get_name(), exec_type, combot_element, false);
         }
         return true;
+    case Executor::ExecutionType::DELETE_EMPTY_NAME:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("You can't delete without a name.") + RESET
+            + std::string(" 👻");
+        command_name = "";
+        break;
+    case Executor::ExecutionType::SWAP_WRONG_INDEX:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("Move index doesn't exist.") + RESET;
+        break;
+    case Executor::ExecutionType::BIG_INDEX:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("Move index too big.") + RESET;
+        break;
+    case Executor::ExecutionType::EMPTY_INDEX:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("Need two index.") + RESET + std::string(" 👻");
+        break;
+    case Executor::ExecutionType::NO_INT_INDEX:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("Index need to be int.");
+        break;
     default:
         return true;
     }
@@ -184,7 +206,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
                 exec_type = Executor::ExecutionType::MOVE_FOLDER;
                 last_folders.pop();
             }
-            if (command_input == "h")
+            else if (command_input == "h")
             {
                 system("clear");
                 Display::instance().display_helper();
@@ -197,6 +219,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
                               exec_type);
                     command_name = command_input;
                 }
+
             }
             continue;
         }
@@ -208,6 +231,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
         }
         catch (...)
         {
+            exec_type = Executor::ExecutionType::BIG_INDEX;
             continue;
         }
 
