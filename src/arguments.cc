@@ -89,6 +89,11 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
     {
         std::string input_number;
         ss >> input_number;
+        if (input_number.empty())
+        {
+            exec_type = Executor::ExecutionType::DELETE_EMPTY_NAME;
+            return;
+        }
         size_t value = std::stoi(input_number) - 1;
 
         auto element = get_element_from_index(map, key, value);
