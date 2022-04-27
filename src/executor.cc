@@ -150,13 +150,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
 
         if (command_input.empty())
             continue;
-        if (command_input == "h")
-        {
-            system("clear");
-            Display::instance().display_helper();
-            std::cout << "Choose your command ➜ ";
-            std::getline(std::cin, command_input);
-        }
+        
 
         if (!std::all_of(command_input.cbegin(), command_input.cend(),
                          ::isdigit))
@@ -174,6 +168,20 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
                 command_name = current_folder;
                 exec_type = Executor::ExecutionType::MOVE_FOLDER;
                 last_folders.pop();
+            }
+            if (command_input == "h")
+            {
+                system("clear");
+                Display::instance().display_helper();
+                std::cout << "Choose your command ➜ ";
+                std::getline(std::cin, command_input);
+                str = command_input.substr(0, 3);
+                if (is_command(str))
+                {
+                    parse_arg(command_input, map, current_folder, home_path,
+                              exec_type);
+                    command_name = command_input;
+                }
             }
             continue;
         }

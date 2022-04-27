@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "element.hh"
 
 std::map<std::string, Folder> Convertor::read(std::string &path)
 {
@@ -11,8 +12,9 @@ std::map<std::string, Folder> Convertor::read(std::string &path)
     std::string line;
     std::ifstream file(path);
     std::vector<Element> elements_;
+    Element current_combot;
     std::string key;
-
+    bool in_combo = false;
     while (std::getline(file, line))
     {
         std::stringstream ss(line);
@@ -41,13 +43,24 @@ std::map<std::string, Folder> Convertor::read(std::string &path)
                 current_element += token;
                 count++;
             }
-            elements_.push_back(Element(current_element, is_folder));
+            if (!in_combo)
+                elements_.push_back(Element(current_element, is_folder));
+            else
+                current_combot.get_combo_elements_().push_back(Element(current_element, is_folder));
+        }
+        else if (token == "--COMBO--")
+            in_combo = true;
+        else if (token == "--END-COMBO--")
+        {
+            elements_.push_back(current_combot);
+            in_combo = false;
         }
         else // STOP TOKEN
         {
             map.insert({ key, elements_ });
             key.clear();
             elements_.clear();
+            current_combot.get_combo_elements_().clear();
         }
     }
 
@@ -65,8 +78,22 @@ void Convertor::write(std::map<std::string, Folder> &map, std::string &path)
         {
             if (elem.get_is_folder())
                 MyFile << "FOLDER ";
-            else
+            else if (!elem.get_is_combo())
                 MyFile << "COMMAND ";
+            else
+            {
+                MyFile << "--COMBO--\n";
+                for (auto &combo : elem.get_combo_elements_())
+                {
+                    if (combo.get_is_folder())
+                        MyFile << "FOLDER ";
+                    else if (!combo.get_is_combo())
+                        MyFile << "COMMAND ";
+                    MyFile << combo.get_name() << '\n';
+                }
+                MyFile << "--END-COMBO--\n";
+                continue;
+            }
             MyFile << elem.get_name() << '\n';
         }
         MyFile << "--STOP--\n";

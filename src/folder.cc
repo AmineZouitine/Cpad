@@ -6,7 +6,7 @@ Folder::Folder(std::vector<Element> &elements)
 
 void Folder::add_command(std::string &command_name)
 {
-    elements_.push_back(Command(command_name));
+    elements_.push_back(Element(command_name, false));
 }
 
 void Folder::add_folder(std::string &folder_name)
