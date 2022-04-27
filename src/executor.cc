@@ -76,7 +76,6 @@ bool Executor::execute(std::string &command_name,
         std::cout << BOLDGREEN + std::string("🔧 ") + "Execution of: " << RESET
                   << command_name << std::endl;
         std::cout << "---\n";
-
         if (!cd_exec(command_name))
             system(command_name.c_str());
         std::cout << "---\n\n";
@@ -104,6 +103,10 @@ bool Executor::execute(std::string &command_name,
     case Executor::ExecutionType::RESET_FOLDER:
         display_line =
             BOLDGREEN + std::string("✔️ ") + "You reset the folder:";
+        break;
+    case Executor::ExecutionType::SWAP:
+        display_line =
+            BOLDGREEN + std::string("✔️ ") + "You move elements:";
         break;
     case Executor::ExecutionType::COMMAND_ERROR_NAME:
         display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED

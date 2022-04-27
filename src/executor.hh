@@ -22,6 +22,7 @@ public:
         COMMAND_ERROR_NAME,
         FOLDER_ERROR_NAME,
         EMPTY_NAME,
+        SWAP,
         NONE
     };
     bool execute(std::string &command_name, Executor::ExecutionType &exec_type);
