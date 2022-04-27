@@ -24,3 +24,7 @@ void concat_argument(std::stringstream &ss, std::string token,
 std::pair<std::string, bool>
 get_element_from_index(std::map<std::string, Folder> &map, std::string &key,
                        size_t index);
+
+void error_handling(std::map<std::string, Folder> &map, std::string &key,
+                    std::string &user_input,
+                    Executor::ExecutionType &exec_type);

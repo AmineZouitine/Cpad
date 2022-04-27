@@ -39,6 +39,8 @@ bool cd_exec(std::string command)
 
 bool Executor::is_template(std::string command)
 {
+    if (command == "[?]")
+        return true;
     return command.find("[?]") != std::string::npos;
 }
 
@@ -48,7 +50,7 @@ void Executor::remplace_templates(std::string &command, bool clear)
 
     while (true)
     {
-        if (command.find("[?]", index) == std::string::npos)
+        if (command.find("[?]", 0) == std::string::npos)
             break;
         std::string user_input;
 
@@ -68,8 +70,8 @@ bool Executor::execute(std::string &command_name,
                        Executor::ExecutionType &exec_type,
                        Element &combot_element, bool clear)
 {
-    if (clear)
-        system("clear");
+    // if (clear)
+    //     system("clear");
     std::string display_line;
     switch (exec_type)
     {
@@ -112,12 +114,16 @@ bool Executor::execute(std::string &command_name,
             BOLDGREEN + std::string("✔️ ") + "You move elements:";
         break;
     case Executor::ExecutionType::COMMAND_ERROR_NAME:
-        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
-            + std::string("You can't add same command twice:");
+        display_line =
+            BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string(
+                "You can't add same command in the same folder twice:");
         break;
     case Executor::ExecutionType::FOLDER_ERROR_NAME:
-        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
-            + std::string("You can't add same folder twice:");
+        display_line =
+            BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string(
+                "You can't add same folder in the all project twice:");
         break;
     case Executor::ExecutionType::EMPTY_NAME:
         display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
@@ -139,7 +145,7 @@ bool Executor::execute(std::string &command_name,
         return true;
     case Executor::ExecutionType::DELETE_EMPTY_NAME:
         display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
-            + std::string("You can't delete without a name.") + RESET
+            + std::string("You can't delete without a number") + RESET
             + std::string(" 👻");
         command_name = "";
         break;
@@ -158,6 +164,16 @@ bool Executor::execute(std::string &command_name,
     case Executor::ExecutionType::NO_INT_INDEX:
         display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
             + std::string("Index need to be int.");
+        break;
+    case Executor::ExecutionType::OUT_OF_RANGE:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("Your number need to be in the project range.");
+        break;
+    case Executor::ExecutionType::RESET_EMPTY_NAME:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("You can't reset with an empty name") + RESET
+            + std::string(" 👻");
+        command_name = "";
         break;
     default:
         return true;

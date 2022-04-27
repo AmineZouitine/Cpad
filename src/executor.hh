@@ -29,6 +29,9 @@ public:
         COMBO,
         SWAP_WRONG_INDEX,
         BIG_INDEX,
+        OUT_OF_RANGE,
+        RESET_EMPTY_NAME,
+        RESET_ALL_TO_MUCH_ARGS,
         NONE
     };
     bool execute(std::string &command_name, Executor::ExecutionType &exec_type,
