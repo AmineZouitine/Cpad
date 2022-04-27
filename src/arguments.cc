@@ -21,7 +21,7 @@ get_element_from_index(std::map<std::string, Folder> &map, std::string &key,
 bool is_command(std::string &cmd)
 {
     return cmd == "-ac" || cmd == "-af" || cmd == "-de" || cmd == "-rf"
-        || cmd == "-ra";
+        || cmd == "-ra" || cmd == "-mv";
 }
 
 void concat_argument(std::stringstream &ss, std::string token,
@@ -120,6 +120,17 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
         exec_type = Executor::ExecutionType::RESET_ALL;
         Convertor::instance().reset_all(map);
     }
+    else if (token == "-mv")
+    {
+        std::string src_index;
+        std::string dst_index;
+        ss >> src_index;
+        ss >> dst_index;
 
+        size_t src_index_val = std::stoi(src_index) - 1;
+        size_t dst_index_val = std::stoi(dst_index) - 1;
+        exec_type = Executor::ExecutionType::SWAP;
+        Convertor::instance().move(map, key, src_index_val, dst_index_val);
+    }
     Convertor::instance().write(map, home_path);
 }

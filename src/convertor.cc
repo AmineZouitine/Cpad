@@ -141,3 +141,9 @@ void Convertor::add_folder(std::map<std::string, Folder> &map, std::string &key,
     map[key].get_elements().push_back(Element(folder_name));
     map.insert({ folder_name, Folder() });
 }
+
+void Convertor::move(std::map<std::string, Folder> &map, std::string &key, size_t src_index,
+          size_t dst_index)
+{
+    std::swap(map[key].get_elements()[src_index], map[key].get_elements()[dst_index]);
+}

@@ -57,6 +57,9 @@ void Display::display_helper()
     std::cout << BOLDGREEN << "-ra" << RESET << ": Reset the contents of the entire folder\n";
     std::cout << BOLDWHITE << "\t usage: -ra \n\n" << RESET;
 
+    std::cout << BOLDGREEN << "-mv" << RESET << ": Move element to another position\n";
+    std::cout << BOLDWHITE << "\t usage: -mv source_position destionation_position \n\n" << RESET;
+
     std::cout << BOLDGREEN << "[?]" << RESET << ": If you add [?] during the creation of your command, "
                  "during the execution you will have the possibility to "
                  "replace them by the content of your choice\n";
