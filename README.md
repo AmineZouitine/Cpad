@@ -7,8 +7,15 @@ You can save commands, put them in folders to organize yourself, create command 
   <img src="https://user-images.githubusercontent.com/53370597/165644900-808e7b5f-ab2a-4d3b-81a0-ca1a3d6ee13f.gif"/>
 </p>
 
-
-* [Features](#features)
 * [Installation](#installation)
-* [Quickstart](#quickstart)
+* [Features](#features)
 * [Roadmap](#roadmap)
+* [Shortcuts](#shortcuts)
+
+## Installation
+
+## Features
+
+## Roadmap
+
+## Shorcuts
