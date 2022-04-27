@@ -42,16 +42,27 @@ void Display::display_helper()
     std::cout << BOLDCYAN << "-------- HELPER PAGE --------\n\n" << RESET;
     std::cout << "-ac : add a new command to the current file\n";
     std::cout << BOLDWHITE << "\t usage : -ac new_command\n\n" << RESET;
+
     std::cout << "-af : add a new folder in de current directory\n";
     std::cout << BOLDWHITE << "\t usage : -af new_folder\n\n" << RESET;
+
     std::cout << "-de : delete a command or a folder\n";
     std::cout << BOLDWHITE << "\t usage : -de number_command_or_folder\n\n"
               << RESET;
+
     std::cout << "-rf : reset the contents of a folder\n";
     std::cout << BOLDWHITE << "\t usage : -rf number_of_the_folder\n\n"
               << RESET;
+
     std::cout << "-ra : reset the contents of the entire folder\n";
-    std::cout << BOLDWHITE << "\t usage : -ra \n" << RESET;
+    std::cout << BOLDWHITE << "\t usage : -ra \n\n" << RESET;
+
+    std::cout << "[?] : If you add [?] during the creation of your command, "
+                 "during the execution you will have the possibility to "
+                 "replace them by the content of your choice\n";
+    std::cout << BOLDWHITE << "\t usage : git commit -m \"[?]\"\n" << RESET;
+    std::cout << BOLDWHITE << "\t usage : echo [?] | cat [?] [?] \n" << RESET;
+
     std::cout << BOLDWHITE << "\n---" << std::endl;
     std::cout << BOLDGREEN << "b- back to cpad" << std::endl;
     std::cout << RED << "q- quit cpad" << std::endl;

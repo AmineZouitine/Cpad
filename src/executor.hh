@@ -27,4 +27,6 @@ public:
     bool execute(std::string &command_name, Executor::ExecutionType &exec_type);
     void command_launcher(std::map<std::string, Folder> &map,
                           std::string &home_path);
+    bool is_template(std::string command);
+    void remplace_templates(std::string &command);
 };
