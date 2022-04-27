@@ -70,8 +70,8 @@ bool Executor::execute(std::string &command_name,
                        Executor::ExecutionType &exec_type,
                        Element &combot_element, bool clear)
 {
-    // if (clear)
-    //     system("clear");
+    if (clear)
+        system("clear");
     std::string display_line;
     switch (exec_type)
     {
