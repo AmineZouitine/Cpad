@@ -94,8 +94,16 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
             exec_type = Executor::ExecutionType::DELETE_EMPTY_NAME;
             return;
         }
-        size_t value = std::stoi(input_number) - 1;
-
+        size_t value;
+        try
+        {
+            value = std::stoi(input_number) - 1;
+        }
+        catch(...)
+        {
+            exec_type = Executor::ExecutionType::BIG_INDEX;
+            return;
+        }
         auto element = get_element_from_index(map, key, value);
         arg = element.first;
         if (element.second)
@@ -113,8 +121,16 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
     {
         std::string input_number;
         ss >> input_number;
-        size_t value = std::stoi(input_number) - 1;
-
+        size_t value;
+        try
+        {
+            value = std::stoi(input_number) - 1;
+        }
+        catch(...)
+        {
+            exec_type = Executor::ExecutionType::BIG_INDEX;
+            return;
+        }
         auto element = get_element_from_index(map, key, value);
         arg = element.first;
         exec_type = Executor::ExecutionType::RESET_FOLDER;
@@ -131,9 +147,45 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
         std::string dst_index;
         ss >> src_index;
         ss >> dst_index;
+        size_t src_index_val;
+        size_t dst_index_val;
+        if(src_index.empty() || dst_index.empty())
+        {
+            exec_type = Executor::ExecutionType::EMPTY_INDEX;
+            return;
+        }
+        else if (!std::all_of(src_index.begin(), src_index.end(), ::isdigit) || !std::all_of(dst_index.begin(), dst_index.end(), ::isdigit))
+        {
+            exec_type = Executor::ExecutionType::NO_INT_INDEX;
+            return;
+        }
+        try
+        {
+            src_index_val = std::stoi(src_index) - 1;
+            dst_index_val = std::stoi(dst_index) - 1;
+        }
+        catch (...)
+        {
+            exec_type = Executor::ExecutionType::BIG_INDEX;
+            return;
+        }
+        bool src_wrong_index = false;
+        bool dst_wrong_index = false;
+        for (auto &elm : map[key].get_elements())
+        {
+            if (elm.get_name()
+                == get_element_from_index(map, key, src_index_val).first)
+                src_wrong_index = true;
+            if (elm.get_name()
+                == get_element_from_index(map, key, dst_index_val).first)
+                dst_wrong_index = true;
+        }
+        if (!src_wrong_index || !dst_wrong_index)
+        {
+            exec_type = Executor::ExecutionType::SWAP_WRONG_INDEX;
+            return;
+        }
 
-        size_t src_index_val = std::stoi(src_index) - 1;
-        size_t dst_index_val = std::stoi(dst_index) - 1;
         exec_type = Executor::ExecutionType::SWAP;
         Convertor::instance().move(map, key, src_index_val, dst_index_val);
     }
