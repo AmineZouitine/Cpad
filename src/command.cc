@@ -1,10 +1,10 @@
 #include "command.hh"
 
-Command::Command(std::string &command_name)
-    : Element(command_name)
+Command::Command(std::string &command_name, bool is_combo)
+    : Element(command_name), is_combo_(is_combo)
 {}
 
-void execute_command()
+bool Command::get_is_combo() const
 {
-    return;
+    return is_combo_;
 }

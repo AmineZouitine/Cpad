@@ -21,7 +21,7 @@ get_element_from_index(std::map<std::string, Folder> &map, std::string &key,
 bool is_command(std::string &cmd)
 {
     return cmd == "-ac" || cmd == "-af" || cmd == "-de" || cmd == "-rf"
-        || cmd == "-ra" || cmd == "-mv";
+        || cmd == "-ra" || cmd == "-mv" || cmd == "-cb";
 }
 
 void concat_argument(std::stringstream &ss, std::string token,

@@ -43,6 +43,9 @@ void Display::display_helper()
     std::cout << BOLDGREEN << "-ac"<< RESET << ": Add a new command to the current file\n";
     std::cout << BOLDWHITE << "\t usage: -ac new_command\n\n" << RESET;
 
+    std::cout << BOLDGREEN << "-cb" << RESET << ": Allows you to create a new command combo, allowing you to launch several commands in a row by pressing a single key\n";
+    std::cout << BOLDWHITE << "\t usage: -cb command_1 [combo] command_2 [combo] command_n \n\n" << RESET;
+
     std::cout << BOLDGREEN <<"-af"<< RESET << ": Add a new folder in de current directory\n";
     std::cout << BOLDWHITE << "\t usage: -af new_folder\n\n" << RESET;
 
