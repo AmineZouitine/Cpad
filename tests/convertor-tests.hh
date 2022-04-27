@@ -50,17 +50,56 @@ TEST(convertor, easy_combo)
     ASSERT_FALSE(map["."].get_elements()[3].get_is_folder());
     ASSERT_EQ(map["."].get_elements()[3].get_name(), "ls");
 
-
     ASSERT_TRUE(map["."].get_elements()[4].get_is_combo());
     ASSERT_EQ(map["."].get_elements()[4].get_name(), "");
     ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_().size(), 2);
 
-    ASSERT_FALSE(map["."].get_elements()[4].get_combo_elements_()[0].get_is_folder());
-    ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_()[0].get_name(), "ls -a");
+    ASSERT_FALSE(
+        map["."].get_elements()[4].get_combo_elements_()[0].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_()[0].get_name(),
+              "ls -a");
 
-    ASSERT_FALSE(map["."].get_elements()[4].get_combo_elements_()[1].get_is_folder());
-    ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_()[1].get_name(), "echo OUI");
+    ASSERT_FALSE(
+        map["."].get_elements()[4].get_combo_elements_()[1].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_()[1].get_name(),
+              "echo OUI");
+}
 
+TEST(convertor, easy_combo_name)
+{
+    std::string path = "./test-ressources/.cpad_combo_name";
+    auto map = Convertor::instance().read(path);
+
+    ASSERT_EQ(map.size(), 1);
+    ASSERT_TRUE(map.find(".") != map.end());
+
+    ASSERT_EQ(map["."].get_elements().size(), 5);
+
+    ASSERT_TRUE(map["."].get_elements()[0].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[0].get_name(), "git commands");
+
+    ASSERT_TRUE(map["."].get_elements()[1].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[1].get_name(), "test");
+
+    ASSERT_FALSE(map["."].get_elements()[2].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[2].get_name(), "ls -a");
+
+    ASSERT_FALSE(map["."].get_elements()[3].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[3].get_name(), "ls");
+
+    ASSERT_TRUE(map["."].get_elements()[4].get_is_combo());
+    ASSERT_EQ(map["."].get_elements()[4].get_name(), "LE SAINT COMBO");
+    ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_().size(), 2);
+
+    ASSERT_FALSE(
+        map["."].get_elements()[4].get_combo_elements_()[0].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_()[0].get_name(),
+              "ls -a");
+
+    ASSERT_FALSE(
+        map["."].get_elements()[4].get_combo_elements_()[1].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_()[1].get_name(),
+              "echo OUI");
 }
 
 TEST(convertor, medium)
@@ -336,7 +375,6 @@ TEST(convertor, write_reset_all)
     ASSERT_EQ(map["."].get_elements().size(), 0);
 }
 
-
 TEST(convertor, write_easy_combo)
 {
     std::string path1 = "./test-ressources/.cpad_combo";
@@ -360,8 +398,35 @@ TEST(convertor, write_easy_combo)
     ASSERT_FALSE(map["."].get_elements()[3].get_is_folder());
     ASSERT_EQ(map["."].get_elements()[3].get_name(), "ls");
 
-
     ASSERT_TRUE(map["."].get_elements()[4].get_is_combo());
     ASSERT_EQ(map["."].get_elements()[4].get_name(), "");
+    ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_().size(), 2);
+}
+
+TEST(convertor, write_name_combo)
+{
+    std::string path1 = "./test-ressources/.cpad_combo_name";
+    std::string path = "./test-ressources/.cpad_easy_test1";
+    auto map_init = Convertor::instance().read(path1);
+    Convertor::instance().write(map_init, path);
+    auto map = Convertor::instance().read(path);
+
+    ASSERT_EQ(map.size(), 1);
+    ASSERT_TRUE(map.find(".") != map.end());
+
+    ASSERT_TRUE(map["."].get_elements()[0].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[0].get_name(), "git commands");
+
+    ASSERT_TRUE(map["."].get_elements()[1].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[1].get_name(), "test");
+
+    ASSERT_FALSE(map["."].get_elements()[2].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[2].get_name(), "ls -a");
+
+    ASSERT_FALSE(map["."].get_elements()[3].get_is_folder());
+    ASSERT_EQ(map["."].get_elements()[3].get_name(), "ls");
+
+    ASSERT_TRUE(map["."].get_elements()[4].get_is_combo());
+    ASSERT_EQ(map["."].get_elements()[4].get_name(), "LE SAINT COMBO");
     ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_().size(), 2);
 }

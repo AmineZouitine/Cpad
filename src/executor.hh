@@ -23,11 +23,13 @@ public:
         FOLDER_ERROR_NAME,
         EMPTY_NAME,
         SWAP,
+        COMBO,
         NONE
     };
-    bool execute(std::string &command_name, Executor::ExecutionType &exec_type);
+    bool execute(std::string &command_name, Executor::ExecutionType &exec_type,
+                 Element &combot_element, bool clear = true);
     void command_launcher(std::map<std::string, Folder> &map,
                           std::string &home_path);
     bool is_template(std::string command);
-    void remplace_templates(std::string &command);
+    void remplace_templates(std::string &command, bool clear);
 };

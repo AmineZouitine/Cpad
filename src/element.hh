@@ -11,7 +11,8 @@ public:
     bool get_is_folder() const;
     std::string &get_name();
     bool get_is_combo() const;
-    std::vector<Element>& get_combo_elements_();
+    std::vector<Element> &get_combo_elements_();
+    void set_name(std::string name);
 
 private:
     bool is_folder_;

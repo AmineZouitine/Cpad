@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+
 #include "element.hh"
 
 std::map<std::string, Folder> Convertor::read(std::string &path)
@@ -46,7 +47,21 @@ std::map<std::string, Folder> Convertor::read(std::string &path)
             if (!in_combo)
                 elements_.push_back(Element(current_element, is_folder));
             else
-                current_combot.get_combo_elements_().push_back(Element(current_element, is_folder));
+                current_combot.get_combo_elements_().push_back(
+                    Element(current_element, is_folder));
+        }
+        else if (token == "NAME")
+        {
+            std::string combo_name;
+            size_t count = 0;
+            while (ss >> token)
+            {
+                if (count != 0)
+                    combo_name += ' ';
+                combo_name += token;
+                count++;
+            }
+            current_combot.set_name(combo_name);
         }
         else if (token == "--COMBO--")
             in_combo = true;
@@ -83,6 +98,8 @@ void Convertor::write(std::map<std::string, Folder> &map, std::string &path)
             else
             {
                 MyFile << "--COMBO--\n";
+                if (!elem.get_name().empty())
+                    MyFile << "NAME " + elem.get_name() + '\n';
                 for (auto &combo : elem.get_combo_elements_())
                 {
                     if (combo.get_is_folder())
@@ -169,8 +186,15 @@ void Convertor::add_folder(std::map<std::string, Folder> &map, std::string &key,
     map.insert({ folder_name, Folder() });
 }
 
-void Convertor::move(std::map<std::string, Folder> &map, std::string &key, size_t src_index,
-          size_t dst_index)
+void Convertor::move(std::map<std::string, Folder> &map, std::string &key,
+                     size_t src_index, size_t dst_index)
 {
-    std::swap(map[key].get_elements()[src_index], map[key].get_elements()[dst_index]);
+    std::swap(map[key].get_elements()[src_index],
+              map[key].get_elements()[dst_index]);
+}
+
+void Convertor::combo(std::map<std::string, Folder> &map, std::string &key,
+                      Element &combo)
+{
+    map[key].get_elements().push_back(combo);
 }
