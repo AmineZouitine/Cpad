@@ -42,7 +42,7 @@ bool Executor::is_template(std::string command)
     return command.find("[?]") != std::string::npos;
 }
 
-void Executor::remplace_templates(std::string &command)
+void Executor::remplace_templates(std::string &command, bool clear)
 {
     size_t index = 1;
 
@@ -59,20 +59,23 @@ void Executor::remplace_templates(std::string &command)
         std::getline(std::cin, user_input);
         std::cout << '\n';
         command.replace(command.find("[?]"), 3, user_input);
-        system("clear");
+        if (clear)
+            system("clear");
     }
 }
 
 bool Executor::execute(std::string &command_name,
-                       Executor::ExecutionType &exec_type)
+                       Executor::ExecutionType &exec_type,
+                       Element &combot_element, bool clear)
 {
-    system("clear");
+    if (clear)
+        system("clear");
     std::string display_line;
     switch (exec_type)
     {
     case Executor::ExecutionType::COMMAND:
         if (is_template(command_name))
-            remplace_templates(command_name);
+            remplace_templates(command_name, clear);
         std::cout << BOLDGREEN + std::string("🔧 ") + "Execution of: " << RESET
                   << command_name << std::endl;
         std::cout << "---\n";
@@ -122,6 +125,18 @@ bool Executor::execute(std::string &command_name,
             + std::string(" 👻");
         command_name = "";
         break;
+    case Executor::ExecutionType::COMBO:
+        display_line = BOLDGREEN + std::string("✔️ ") + "COMBO EXECUTION:";
+        std::cout << RESET << display_line << RESET << WHITE << ' '
+                  << command_name << RESET << '\n'
+                  << std::endl;
+        for (auto &command : combot_element.get_combo_elements_())
+        {
+            Executor::ExecutionType exec_type =
+                Executor::ExecutionType::COMMAND;
+            execute(command.get_name(), exec_type, combot_element, false);
+        }
+        return true;
     case Executor::ExecutionType::DELETE_EMPTY_NAME:
         display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
             + std::string("You can't delete without a name.") + RESET
@@ -161,6 +176,7 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
     std::string current_folder = ".";
     std::stack<std::string> last_folders;
     Executor::ExecutionType exec_type;
+    Element combo_element;
     do
     {
         exec_type = Executor::ExecutionType::NONE;
@@ -196,6 +212,14 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
                 Display::instance().display_helper();
                 std::cout << "Choose your command ➜ ";
                 std::getline(std::cin, command_input);
+                str = command_input.substr(0, 3);
+                if (is_command(str))
+                {
+                    parse_arg(command_input, map, current_folder, home_path,
+                              exec_type);
+                    command_name = command_input;
+                }
+
             }
             continue;
         }
@@ -215,15 +239,20 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
             continue;
 
         command_name = elements[command_number - 1].get_name();
+        combo_element = elements[command_number - 1];
         if (elements[command_number - 1].get_is_folder())
         {
             last_folders.emplace(current_folder);
             current_folder = command_name;
         }
+
         exec_type = elements[command_number - 1].get_is_folder()
             ? Executor::ExecutionType::MOVE_FOLDER
+            : elements[command_number - 1].get_is_combo()
+            ? Executor::ExecutionType::COMBO
             : Executor::ExecutionType::COMMAND;
 
     } while (command_input != "q"
-             && Executor::instance().execute(command_name, exec_type));
+             && Executor::instance().execute(command_name, exec_type,
+                                             combo_element));
 }

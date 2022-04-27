@@ -21,7 +21,7 @@ get_element_from_index(std::map<std::string, Folder> &map, std::string &key,
 bool is_command(std::string &cmd)
 {
     return cmd == "-ac" || cmd == "-af" || cmd == "-de" || cmd == "-rf"
-        || cmd == "-ra" || cmd == "-mv";
+        || cmd == "-ra" || cmd == "-mv" || cmd == "-cb";
 }
 
 void concat_argument(std::stringstream &ss, std::string token,
@@ -188,6 +188,56 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
 
         exec_type = Executor::ExecutionType::SWAP;
         Convertor::instance().move(map, key, src_index_val, dst_index_val);
+    }
+    else if (token == "-cb")
+    {
+        std::stringstream tmp_ss(arg);
+        tmp_ss >> token;
+        std::string command_name;
+        size_t iteration = 0;
+
+        while (tmp_ss >> token)
+        {
+            if (iteration == 0 && token[0] != '{')
+            {
+                command_name = "";
+                break;
+            }
+            command_name.empty() ? command_name += token
+                                 : command_name += ' ' + token;
+            if (token[token.size() - 1] == '}')
+                break;
+            iteration++;
+        }
+        if (command_name.size() >= 2 && command_name[0] == '{'
+            && command_name[command_name.size() - 1] == '}')
+        {
+            command_name = command_name.substr(1, command_name.size() - 2);
+            ss >> token;
+        }
+
+        Element combo;
+        if (!command_name.empty())
+            combo.set_name(command_name);
+        std::string current_command;
+
+        while (ss >> token)
+        {
+            if (token == "[combo]")
+            {
+                combo.get_combo_elements_().push_back(
+                    Element(current_command, false));
+                current_command = "";
+                continue;
+            }
+            current_command.empty() ? current_command += token
+                                    : current_command += ' ' + token;
+        }
+        if (!current_command.empty())
+            combo.get_combo_elements_().push_back(
+                Element(current_command, false));
+        Convertor::instance().combo(map, key, combo);
+        exec_type = Executor::ExecutionType::COMBO;
     }
     Convertor::instance().write(map, home_path);
 }

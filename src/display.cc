@@ -21,9 +21,33 @@ void Display::display(std::string &key, std::map<std::string, Folder> &map)
         if (elm.get_is_folder())
             std::cout << BOLD << std::to_string(i) << RESET << " ➜ " << BOLDBLUE
                       << elm.get_name() << " 📁 " << std::endl;
-        else
+        else if (!elm.get_is_combo())
             std::cout << BOLD << std::to_string(i) << RESET << " ➜ "
                       << elm.get_name() << std::endl;
+        else
+        {
+            if (elm.get_name().empty())
+            {
+                if (elm.get_combo_elements_().size() > 0)
+                    std::cout << BOLD << std::to_string(i) << RESET << " ➜ "
+                              << elm.get_combo_elements_()[0].get_name()
+                              << std::endl;
+
+                std::string space = " ";
+                for (size_t i = 1; i < elm.get_combo_elements_().size(); i++)
+                {
+                    std::cout << space << RESET << " 🔸 "
+                              << elm.get_combo_elements_()[i].get_name()
+                              << std::endl;
+                    // space += "  ";
+                }
+            }
+            else
+            {
+                std::cout << BOLD << std::to_string(i) << RESET << " ➜ "
+                          << BOLDRED << elm.get_name() << RESET << std::endl;
+            }
+        }
         std::cout << RESET;
         i++;
     }
@@ -40,27 +64,45 @@ void Display::display(std::string &key, std::map<std::string, Folder> &map)
 void Display::display_helper()
 {
     std::cout << BOLDCYAN << "-------- HELPER PAGE --------\n\n" << RESET;
-    std::cout << BOLDGREEN << "-ac"<< RESET << ": Add a new command to the current file\n";
+    std::cout << BOLDGREEN << "-ac" << RESET
+              << ": Add a new command to the current file\n";
     std::cout << BOLDWHITE << "\t usage: -ac new_command\n\n" << RESET;
 
-    std::cout << BOLDGREEN <<"-af"<< RESET << ": Add a new folder in de current directory\n";
+    std::cout << BOLDGREEN << "-cb" << RESET
+              << ": Allows you to create a new command combo, allowing you to "
+                 "launch several commands in a row by pressing a single key\n";
+    std::cout
+        << BOLDWHITE
+        << "\t usage: -cb command_1 [combo] command_2 [combo] command_n \n"
+        << RESET;
+    std::cout << BOLDWHITE
+              << "\t usage: -cb {combo_name} command_1 [combo] command_2 "
+                 "[combo] command_n \n\n"
+              << RESET;
+
+    std::cout << BOLDGREEN << "-af" << RESET
+              << ": Add a new folder in de current directory\n";
     std::cout << BOLDWHITE << "\t usage: -af new_folder\n\n" << RESET;
 
-    std::cout << BOLDGREEN <<"-de" << RESET <<  ": Delete a command or a folder\n";
+    std::cout << BOLDGREEN << "-de" << RESET
+              << ": Delete a command or a folder\n";
     std::cout << BOLDWHITE << "\t usage: -de number_command_or_folder\n\n"
               << RESET;
 
-    std::cout << BOLDGREEN << "-rf" << RESET <<": Reset the contents of a folder\n";
-    std::cout << BOLDWHITE << "\t usage: -rf number_of_the_folder\n\n"
-              << RESET;
+    std::cout << BOLDGREEN << "-rf" << RESET
+              << ": Reset the contents of a folder\n";
+    std::cout << BOLDWHITE << "\t usage: -rf number_of_the_folder\n\n" << RESET;
 
-    std::cout << BOLDGREEN << "-ra" << RESET << ": Reset the contents of the entire folder\n";
+    std::cout << BOLDGREEN << "-ra" << RESET
+              << ": Reset the contents of the entire folder\n";
     std::cout << BOLDWHITE << "\t usage: -ra \n\n" << RESET;
 
+     
     std::cout << BOLDGREEN << "-mv" << RESET << ": Move element to another position\n";
     std::cout << BOLDWHITE << "\t usage: -mv source_position destination_position \n\n" << RESET;
 
-    std::cout << BOLDGREEN << "[?]" << RESET << ": If you add [?] during the creation of your command, "
+    std::cout << BOLDGREEN << "[?]" << RESET
+              << ": If you add [?] during the creation of your command, "
                  "during the execution you will have the possibility to "
                  "replace them by the content of your choice\n";
     std::cout << BOLDWHITE << "\t usage: git commit -m \"[?]\"\n" << RESET;

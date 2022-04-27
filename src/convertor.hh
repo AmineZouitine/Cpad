@@ -22,7 +22,10 @@ public:
                        std::string &current_folder, std::string &folder_name);
     void reset_folder(std::map<std::string, Folder> &map, std::string &key);
     void reset_all(std::map<std::string, Folder> &map);
-    void move(std::map<std::string, Folder> &map,std::string &key, size_t src_index, size_t dst_index);
+    void move(std::map<std::string, Folder> &map, std::string &key,
+              size_t src_index, size_t dst_index);
+    void combo(std::map<std::string, Folder> &map, std::string &key,
+               Element &combo);
 
 private:
     void get_all_folders(std::map<std::string, Folder> &map, std::string &key,
