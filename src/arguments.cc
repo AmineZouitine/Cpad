@@ -99,7 +99,7 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
         {
             value = std::stoi(input_number) - 1;
         }
-        catch(...)
+        catch (...)
         {
             exec_type = Executor::ExecutionType::BIG_INDEX;
             return;
@@ -126,7 +126,7 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
         {
             value = std::stoi(input_number) - 1;
         }
-        catch(...)
+        catch (...)
         {
             exec_type = Executor::ExecutionType::BIG_INDEX;
             return;
@@ -149,12 +149,13 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
         ss >> dst_index;
         size_t src_index_val;
         size_t dst_index_val;
-        if(src_index.empty() || dst_index.empty())
+        if (src_index.empty() || dst_index.empty())
         {
             exec_type = Executor::ExecutionType::EMPTY_INDEX;
             return;
         }
-        else if (!std::all_of(src_index.begin(), src_index.end(), ::isdigit) || !std::all_of(dst_index.begin(), dst_index.end(), ::isdigit))
+        else if (!std::all_of(src_index.begin(), src_index.end(), ::isdigit)
+                 || !std::all_of(dst_index.begin(), dst_index.end(), ::isdigit))
         {
             exec_type = Executor::ExecutionType::NO_INT_INDEX;
             return;
@@ -223,7 +224,7 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
 
         while (ss >> token)
         {
-            if (token == "[combo]")
+            if (token == "[cb]")
             {
                 combo.get_combo_elements_().push_back(
                     Element(current_command, false));

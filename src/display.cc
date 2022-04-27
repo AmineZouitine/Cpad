@@ -66,47 +66,60 @@ void Display::display_helper()
     std::cout << BOLDCYAN << "-------- HELPER PAGE --------\n\n" << RESET;
     std::cout << BOLDGREEN << "-ac" << RESET
               << ": Add a new command to the current file\n";
-    std::cout << BOLDWHITE << "\t usage: -ac new_command\n\n" << RESET;
+    std::cout << BOLDWHITE << "\t usage: -ac new_command\n" << RESET;
+    std::cout << YELLOW << "\t exemple: -ac ls -a\n\n" << RESET;
 
     std::cout << BOLDGREEN << "-cb" << RESET
               << ": Allows you to create a new command combo, allowing you to "
                  "launch several commands in a row by pressing a single key\n";
-    std::cout
-        << BOLDWHITE
-        << "\t usage: -cb command_1 [combo] command_2 [combo] command_n \n"
-        << RESET;
     std::cout << BOLDWHITE
-              << "\t usage: -cb {combo_name} command_1 [combo] command_2 "
-                 "[combo] command_n \n\n"
+              << "\t usage: -cb command_1 [cb] command_2 [cb] command_n \n"
+              << RESET;
+    std::cout << BOLDWHITE
+              << "\t usage: -cb {combo_name} command_1 [cb] command_2 "
+                 "[cb] command_n \n"
+              << RESET;
+    std::cout << YELLOW << "\t exemple: -cb ls -a [cb] pwd [cb] echo [?] \n"
+              << RESET;
+    std::cout << YELLOW
+              << "\t exemple: -cb {PUSH} git add [?] [cb] git status [cb] git "
+                 "commit -m \"[?]\" [cb] git push origin [?]\n\n"
               << RESET;
 
     std::cout << BOLDGREEN << "-af" << RESET
               << ": Add a new folder in de current directory\n";
-    std::cout << BOLDWHITE << "\t usage: -af new_folder\n\n" << RESET;
+    std::cout << BOLDWHITE << "\t usage: -af new_folder\n" << RESET;
+    std::cout << YELLOW << "\t exemple: -af git commands\n\n" << RESET;
 
     std::cout << BOLDGREEN << "-de" << RESET
               << ": Delete a command or a folder\n";
-    std::cout << BOLDWHITE << "\t usage: -de number_command_or_folder\n\n"
+    std::cout << BOLDWHITE << "\t usage: -de number_command_or_folder\n"
               << RESET;
+    std::cout << YELLOW << "\t exemple: -de 5\n\n" << RESET;
 
     std::cout << BOLDGREEN << "-rf" << RESET
               << ": Reset the contents of a folder\n";
-    std::cout << BOLDWHITE << "\t usage: -rf number_of_the_folder\n\n" << RESET;
+    std::cout << BOLDWHITE << "\t usage: -rf number_of_the_folder\n" << RESET;
+    std::cout << YELLOW << "\t exemple: -rf 5\n\n" << RESET;
 
     std::cout << BOLDGREEN << "-ra" << RESET
               << ": Reset the contents of the entire folder\n";
-    std::cout << BOLDWHITE << "\t usage: -ra \n\n" << RESET;
+    std::cout << BOLDWHITE << "\t usage: -ra \n" << RESET;
 
-     
-    std::cout << BOLDGREEN << "-mv" << RESET << ": Move element to another position\n";
-    std::cout << BOLDWHITE << "\t usage: -mv source_position destination_position \n\n" << RESET;
+    std::cout << BOLDGREEN << "-mv" << RESET
+              << ": Move element to another position\n";
+    std::cout << BOLDWHITE
+              << "\t usage: -mv source_position destination_position \n"
+              << RESET;
+    std::cout << YELLOW << "\t exemple: -mv 2 5\n\n" << RESET;
 
     std::cout << BOLDGREEN << "[?]" << RESET
               << ": If you add [?] during the creation of your command, "
                  "during the execution you will have the possibility to "
                  "replace them by the content of your choice\n";
-    std::cout << BOLDWHITE << "\t usage: git commit -m \"[?]\"\n" << RESET;
-    std::cout << BOLDWHITE << "\t usage: echo [?] | cat [?] [?] \n" << RESET;
+    std::cout << BOLDWHITE << "\t usage: [?]\n" << RESET;
+    std::cout << YELLOW << "\t exemple: git commit -m \"[?]\"\n" << RESET;
+    std::cout << YELLOW << "\t usage: echo [?] | cat [?] [?] \n" << RESET;
 
     std::cout << BOLDWHITE << "\n---" << std::endl;
     std::cout << BOLDGREEN << "b- back to cpad" << std::endl;

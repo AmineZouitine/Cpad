@@ -62,6 +62,7 @@ std::map<std::string, Folder> Convertor::read(std::string &path)
                 count++;
             }
             current_combot.set_name(combo_name);
+            combo_name = "";
         }
         else if (token == "--COMBO--")
             in_combo = true;
@@ -69,13 +70,14 @@ std::map<std::string, Folder> Convertor::read(std::string &path)
         {
             elements_.push_back(current_combot);
             in_combo = false;
+            current_combot.get_combo_elements_().clear();
+            current_combot.set_name("");
         }
         else // STOP TOKEN
         {
             map.insert({ key, elements_ });
             key.clear();
             elements_.clear();
-            current_combot.get_combo_elements_().clear();
         }
     }
 

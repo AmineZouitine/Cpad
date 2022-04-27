@@ -219,7 +219,6 @@ void Executor::command_launcher(std::map<std::string, Folder> &map,
                               exec_type);
                     command_name = command_input;
                 }
-
             }
             continue;
         }
