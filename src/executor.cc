@@ -37,6 +37,32 @@ bool cd_exec(std::string command)
     return false;
 }
 
+bool Executor::is_template(std::string command)
+{
+    return command.find("[?]") != std::string::npos;
+}
+
+void Executor::remplace_templates(std::string &command)
+{
+    size_t index = 1;
+
+    while (true)
+    {
+        if (command.find("[?]", index) == std::string::npos)
+            break;
+        std::string user_input;
+
+        std::cout << BOLDGREEN << "current_command: " << RESET << command
+                  << "\n";
+        std::cout << index++ << " ➜ remplace " << RED << "[?]" << RESET
+                  << " ➜ ";
+        std::getline(std::cin, user_input);
+        std::cout << '\n';
+        command.replace(command.find("[?]"), 3, user_input);
+        system("clear");
+    }
+}
+
 bool Executor::execute(std::string &command_name,
                        Executor::ExecutionType &exec_type)
 {
@@ -45,9 +71,12 @@ bool Executor::execute(std::string &command_name,
     switch (exec_type)
     {
     case Executor::ExecutionType::COMMAND:
-        std::cout <<  BOLDGREEN + std::string("🔧 ") + "Execution of: "  << RESET <<  command_name
-                  << std::endl;
+        if (is_template(command_name))
+            remplace_templates(command_name);
+        std::cout << BOLDGREEN + std::string("🔧 ") + "Execution of: " << RESET
+                  << command_name << std::endl;
         std::cout << "---\n";
+
         if (!cd_exec(command_name))
             system(command_name.c_str());
         std::cout << "---\n\n";
@@ -61,13 +90,16 @@ bool Executor::execute(std::string &command_name,
             BOLDGREEN + std::string("✔️ ") + "Creation of folder:";
         break;
     case Executor::ExecutionType::DELETE_COMMAND:
-        display_line = BOLDGREEN + std::string("✔️ ") +"Deletion of command:";
+        display_line =
+            BOLDGREEN + std::string("✔️ ") + "Deletion of command:";
         break;
     case Executor::ExecutionType::DELETE_FOLDER:
-        display_line = BOLDGREEN + std::string("✔️ ") + "Deletion of folder:";
+        display_line =
+            BOLDGREEN + std::string("✔️ ") + "Deletion of folder:";
         break;
     case Executor::ExecutionType::MOVE_FOLDER:
-        display_line = BOLDGREEN + std::string("✔️ ") + "You move into the folder:";
+        display_line =
+            BOLDGREEN + std::string("✔️ ") + "You move into the folder:";
         break;
     case Executor::ExecutionType::COMMAND_ERROR_NAME:
         display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
