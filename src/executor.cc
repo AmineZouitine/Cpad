@@ -122,6 +122,12 @@ bool Executor::execute(std::string &command_name,
             + std::string(" 👻");
         command_name = "";
         break;
+    case Executor::ExecutionType::DELETE_EMPTY_NAME:
+        display_line = BOLDRED + std::string("✖️ ") + UNDERBOLDRED
+            + std::string("You can't delete without a name.") + RESET
+            + std::string(" 👻");
+        command_name = "";
+        break;
     default:
         return true;
     }

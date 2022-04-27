@@ -22,6 +22,7 @@ public:
         COMMAND_ERROR_NAME,
         FOLDER_ERROR_NAME,
         EMPTY_NAME,
+        DELETE_EMPTY_NAME,
         SWAP,
         NONE
     };
