@@ -3,7 +3,11 @@
 **Do you use several commands in your terminal, one after the other ?** This tool allows you to combine **multiple templated** bash commands with the alias of your choice.
 
 ## 👨🏽‍💻 Installation
-
+### Prebuilt binaries
+  #### ⭐️ Beautiful version (It may have some issues if you don't have the right fonts) 
+  
+  #### 🪶 Solf version
+  
 ## ⚡️ Quick start
 
 In these examples, you will discover the following elements: : **-cb** **[cb]** **[?]**.
@@ -32,10 +36,7 @@ Create your project setup quickly with this kind of command.
   -cb mkdir [?] [cb] cd [?] [cb] touch Makefile [cb] mkdir test [cb] mkdir -p src/header [cb] touch src/main.cc
 ```
 
-
 **Here is how to use the command we just created:** 
-
-![FINAL-2022-04-28_23 59 01](https://user-images.githubusercontent.com/53370597/165855226-d7b89af6-947e-4427-8066-9ebdf3227023.gif)
 
 ## 📋 Features
 
@@ -43,3 +44,7 @@ Create your project setup quickly with this kind of command.
 
 
 ## 💞 Acknowledgement
+
+Thanks to [Paul-annet Renoux](https://github.com/DashPolo) and [Oceane Valat](https://github.com/oceane-vlt) for their great contributions on this project.
+
+And to [Raphael Sourty](https://github.com/raphaelsty), [Adil Zouitine](https://github.com/AdilZouitine) and [Mehdi Zouitine](https://github.com/MehdiZouitine) for their precious advice.
