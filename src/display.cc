@@ -46,7 +46,7 @@ void Display::display(std::string &key, std::map<std::string, Folder> &map)
             else
             {
                 std::cout << BOLD << std::to_string(i) << RESET << " ➜ "
-                          << BOLDMAGENTA << elm.get_name() << RESET << " 🔸"
+                          << BOLDRED << elm.get_name() << RESET << " 🔸"
                           << std::endl;
             }
         }
