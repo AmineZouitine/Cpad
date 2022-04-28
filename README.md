@@ -9,7 +9,7 @@ You can save commands, put them in folders to organize yourself, create command 
 
 * [Installation](#installation)
 * [Features](#features)
-  * [Start])(#start)
+  * [Start](#start)
   * [Add command](#add_command)
   * [Add folder](#add_command)
   * [Execution](#execution)
