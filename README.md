@@ -21,9 +21,9 @@ Add files to a commit, set a commit message, see the changes in your repository.
   -cb git add [?] [cb] git status [cb] git commit -m "[?]" [cb] git push origin [?] [cb] git checkout [?]
 ```
 
-```
- Here is how to use the command we just created: 
-```
+
+ **Here is how to use the command we just created:**
+
 ![final-2022-04-28_23 26 38](https://user-images.githubusercontent.com/53370597/165849013-3814ea42-bf85-4e0f-a7ba-197344c9b8b2.gif)
 
 ### Fast project C++ Setup
@@ -31,11 +31,8 @@ Create your project setup quickly with this kind of command.
 ```sh
   -cb mkdir [?] [cb] cb [?] [cb] touch Makefile [cb] mkdir test [cb] mkdir -p src/header [cb] touch src/main.cc
 ```
-```
- Here is how to use the command we just created: 
-```
 
-![Combo](https://user-images.githubusercontent.com/53370597/165840119-69e0d6a0-62e1-4fc4-b182-016076b9998e.gif)
+**Here is how to use the command we just created:** 
 
 ## 📋 Features
 
