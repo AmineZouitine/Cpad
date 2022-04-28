@@ -65,4 +65,4 @@ mv my_cpad_configuration ~/.cpad
 
 Thanks to [Paul-annet Renoux](https://github.com/DashPolo) and [Oceane Valat](https://github.com/oceane-vlt) for their great contributions on this project.
 
-And to [Raphael Sourty](https://github.com/raphaelsty), [Adil Zouitine](https://github.com/AdilZouitine) and [Mehdi Zouitine](https://github.com/MehdiZouitine) for their precious advice.
+And to [Adil Zouitine](https://github.com/AdilZouitine), [Raphael Sourty](https://github.com/raphaelsty) and [Mehdi Zouitine](https://github.com/MehdiZouitine) for their precious advice.
