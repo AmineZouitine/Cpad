@@ -36,7 +36,7 @@ Create your project setup quickly with this kind of command.
 ```
 --> gif
 
-## 🔗 Features
+## 📋 Features
 
 ![image](https://user-images.githubusercontent.com/53370597/165828252-2f91299f-fb96-4cb9-92ef-d506956f86e8.png)
 
