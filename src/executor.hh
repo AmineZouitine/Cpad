@@ -26,6 +26,7 @@ public:
         NO_INT_INDEX,
         DELETE_EMPTY_NAME,
         SWAP,
+        CREATE_COMBO,
         COMBO,
         SWAP_WRONG_INDEX,
         BIG_INDEX,
