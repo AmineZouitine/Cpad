@@ -9,6 +9,7 @@
 #define RED "\033[31m" /* RED */
 #define BOLDWHITE "\033[1m\033[37m" /* Bold White */
 #define BOLDCYAN "\033[1m\033[36m" /* Bold Cyan */
+#define BOLDMAGENTA "\033[1m\033[35m" /* Bold Magenta */
 
 void Display::display(std::string &key, std::map<std::string, Folder> &map)
 {
@@ -45,7 +46,7 @@ void Display::display(std::string &key, std::map<std::string, Folder> &map)
             else
             {
                 std::cout << BOLD << std::to_string(i) << RESET << " ➜ "
-                          << BOLDRED << elm.get_name() << RESET << " 🔸"
+                          << BOLDMAGENTA << elm.get_name() << RESET << " 🔸"
                           << std::endl;
             }
         }

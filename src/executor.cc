@@ -89,6 +89,10 @@ bool Executor::execute(std::string &command_name,
         display_line =
             BOLDGREEN + std::string("✔️ ") + "Creation of command:";
         break;
+    case Executor::ExecutionType::CREATE_COMBO:
+        display_line = 
+            BOLDGREEN + std::string("✔️ ") + "Creation of combo:";
+        break;
     case Executor::ExecutionType::CREATE_FOLDER:
         display_line =
             BOLDGREEN + std::string("✔️ ") + "Creation of folder:";

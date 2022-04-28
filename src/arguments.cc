@@ -328,7 +328,7 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
             combo.get_combo_elements_().push_back(
                 Element(current_command, false));
         Convertor::instance().combo(map, key, combo);
-        exec_type = Executor::ExecutionType::COMBO;
+        exec_type = Executor::ExecutionType::CREATE_COMBO;
     }
     Convertor::instance().write(map, home_path);
 }
