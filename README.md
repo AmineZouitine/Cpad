@@ -6,8 +6,8 @@
 
 ## ⚡️ Quick start
 
-in these examples you will remember to see the following elements: **-cb** **[cb]** **[?]**.
-They are explained in the features section, but quickly:
+In these examples, you will discover the following elements: : **-cb** **[cb]** **[?]**.
+They are explained in the features section, but quickly :
 
 **-cb** - Allows you to create a combo command.
 
@@ -18,13 +18,13 @@ They are explained in the features section, but quickly:
 ### Fast push on Github
 Add files to a commit, set a commit message, see the changes in your repository. Push your changes to the branch of your choice.
 ```sh
-  -cb git add [?] [cb] git status [?] [cb] git commit -m "[?]" [cb] git push origin [?] [cb] git checkout [?]
+  -cb git add [?] [cb] git status [cb] git commit -m "[?]" [cb] git push origin [?] [cb] git checkout [?]
 ```
 
 ```
  Here is how to use the command we just created: 
 ```
---> gif
+![final-2022-04-28_23 26 38](https://user-images.githubusercontent.com/53370597/165849013-3814ea42-bf85-4e0f-a7ba-197344c9b8b2.gif)
 
 ### Fast project C++ Setup
 Create your project setup quickly with this kind of command.
@@ -34,7 +34,8 @@ Create your project setup quickly with this kind of command.
 ```
  Here is how to use the command we just created: 
 ```
---> gif
+
+![Combo](https://user-images.githubusercontent.com/53370597/165840119-69e0d6a0-62e1-4fc4-b182-016076b9998e.gif)
 
 ## 📋 Features
 
