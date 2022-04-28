@@ -119,8 +119,8 @@ void Display::display_helper()
                  "during the execution you will have the possibility to "
                  "replace them by the content of your choice\n";
     std::cout << BOLDWHITE << "\t usage: [?]\n" << RESET;
-    std::cout << YELLOW << "\t exemple: git commit -m \"[?]\"\n" << RESET;
-    std::cout << YELLOW << "\t usage: echo [?] | cat [?] [?] \n" << RESET;
+    std::cout << YELLOW << "\t exemple: -ac git commit -m \"[?]\"\n" << RESET;
+    std::cout << YELLOW << "\t exemple: -cb ls [?] [cb] cd [?] \n" << RESET;
 
     std::cout << BOLDWHITE << "\n---" << std::endl;
     std::cout << BOLDGREEN << "b- back to cpad" << std::endl;

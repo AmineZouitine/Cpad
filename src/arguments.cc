@@ -178,7 +178,14 @@ void error_handling(std::map<std::string, Folder> &map, std::string &key,
         }
     }
     else if (token == "-cb")
-    {}
+    {
+        concat_argument(ss, token, cmd_argument);
+        if (cmd_argument.empty())
+        {
+            exec_type = Executor::ExecutionType::EMPTY_NAME;
+            return;
+        }
+    }
 }
 
 std::pair<std::string, bool>
