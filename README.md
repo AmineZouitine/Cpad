@@ -110,8 +110,9 @@ In order to create template commands, you just have to use the keyword **[?]** w
 
 ### Combo
 
+
 <p>
-  <img src="https://user-images.githubusercontent.com/53370597/165650465-f7e33207-a425-4ed4-bd30-98fb39e0398f.gif"/>
+  <img src="https://user-images.githubusercontent.com/53370597/165651487-3ea69e80-cbba-4f80-8d78-6c57196d1c4e.gif"/>
 </p>
 
 
