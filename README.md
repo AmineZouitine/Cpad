@@ -39,8 +39,9 @@ In order to create a command, you just have to type.
 -ac command name
 ```
 <p>
-  <img src="https://user-images.githubusercontent.com/53370597/165646574-c3e3a41e-11b2-4814-bf43-ad4e57620ff0.gif"/>
+  <img src="https://user-images.githubusercontent.com/53370597/165650938-788e7ed9-c073-49cb-876d-4c6e3380f939.gif"/>
 </p>
+
 
 
 ### Add folder
@@ -50,7 +51,7 @@ In order to create a folder, you just have to type.
 ```
 
 <p>
-  <img src="https://user-images.githubusercontent.com/53370597/165650164-9bca7018-72c0-4844-ac15-623632a7cb2e.gif"/>
+  <img src="https://user-images.githubusercontent.com/53370597/165650904-6f5de639-e02b-4881-87b3-89e4b22a6bc4.gif"/>
 </p>
 
 ### Execution
