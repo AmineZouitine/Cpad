@@ -80,7 +80,7 @@ bool Executor::execute(std::string &command_name,
                   << command_name << std::endl;
         std::cout << "---\n";
         if (!cd_exec(command_name))
-            system(command_name.c_str());
+            system(command_name.c_str()) ;
         std::cout << "---\n\n";
         return true;
     case Executor::ExecutionType::CREATE_COMMAND:
