@@ -18,7 +18,7 @@ They are explained in the features section, but quickly :
 ### Fast push on Github
 Add files to a commit, set a commit message, see the changes in your repository. Push your changes to the branch of your choice.
 ```sh
-  -cb git add [?] [cb] git status [cb] git commit -m "[?]" [cb] git push origin [?] [cb] git checkout [?]
+  -cb git add [?] [cb] git status [cb] git commit -m "[?]" [cb] git push origin [?] [cb] git checkout main
 ```
 
 
@@ -29,10 +29,13 @@ Add files to a commit, set a commit message, see the changes in your repository.
 ### Fast project C++ Setup
 Create your project setup quickly with this kind of command.
 ```sh
-  -cb mkdir [?] [cb] cb [?] [cb] touch Makefile [cb] mkdir test [cb] mkdir -p src/header [cb] touch src/main.cc
+  -cb mkdir [?] [cb] cd [?] [cb] touch Makefile [cb] mkdir test [cb] mkdir -p src/header [cb] touch src/main.cc
 ```
 
+
 **Here is how to use the command we just created:** 
+
+![FINAL-2022-04-28_23 59 01](https://user-images.githubusercontent.com/53370597/165855226-d7b89af6-947e-4427-8066-9ebdf3227023.gif)
 
 ## 📋 Features
 
