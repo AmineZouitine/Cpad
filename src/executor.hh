@@ -28,6 +28,7 @@ public:
         SWAP,
         CREATE_COMBO,
         COMBO,
+        CREATE_COMBO,
         SWAP_WRONG_INDEX,
         BIG_INDEX,
         OUT_OF_RANGE,
