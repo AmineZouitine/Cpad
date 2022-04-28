@@ -6,7 +6,7 @@
 ### Prebuilt binaries
   #### ⭐️ Beautiful version (It may have some issues if you don't have the right fonts) 
   
-  #### 🪶 Solf version
+  #### 🪶 Soft version
   
 ## ⚡️ Quick start
 
@@ -43,6 +43,23 @@ Create your project setup quickly with this kind of command.
 ## 📋 Features
 
 ![image](https://user-images.githubusercontent.com/53370597/165828252-2f91299f-fb96-4cb9-92ef-d506956f86e8.png)
+
+
+## 👏🏼 Share your configuration with your friends
+
+All your configuration is saved in the **.cpad** file in your home folder (Don't delete it or your configuration will be too).
+
+What you should do:
+
+```sh
+cp ~/.cpad my_cpad_configuration
+```
+What your friends should do
+
+```sh
+mv my_cpad_configuration .cpad
+```
+
 
 
 ## 💞 Acknowledgement
