@@ -53,7 +53,7 @@ All your configuration is saved in the **.cpad** file in your home folder (Don't
 What you should do:
 
 ```sh
-cp ~/.cpad ~/.my_cpad_configuration
+cp ~/.cpad ~/my_cpad_configuration
 ```
 What your friends should do
 
