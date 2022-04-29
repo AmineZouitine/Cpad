@@ -37,7 +37,8 @@ Create your project setup quickly with this kind of command.
 ```
 
 **Here is how to use the command we just created:** 
-![FINAL-2022-04-28_23 59 01(1)](https://user-images.githubusercontent.com/53370597/165858449-bbfbc71e-0627-4144-b483-5ec7ebd34749.gif)
+
+![newproject-2022-04-29_18 33 07](https://user-images.githubusercontent.com/53370597/165987189-56cb58b4-0c32-4eff-916f-0f56af0e4a84.gif)
 
 
 ## 📋 Features
