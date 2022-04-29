@@ -43,8 +43,7 @@ Create your project setup quickly with this kind of command.
 
 ## 📋 Features
 
-![image](https://user-images.githubusercontent.com/53370597/165828252-2f91299f-fb96-4cb9-92ef-d506956f86e8.png)
-
+![image](https://user-images.githubusercontent.com/53370597/165990358-fbe50e30-a930-47ba-93c1-735f811cc45b.png)
 
 ## 👏🏼 Share your configuration with your friends
 
