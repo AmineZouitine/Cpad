@@ -238,7 +238,7 @@ void parse_arg(std::string &arg, std::map<std::string, Folder> &map,
     {
         std::string input_number;
         ss >> input_number;
-        size_t value = std::stoi(input_number) - 1;
+        size_t value = std::stoi(input_number) - ;
         auto element = get_element_from_index(map, key, value);
         arg = element.first;
         if (element.second)

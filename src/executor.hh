@@ -13,16 +13,22 @@ public:
     enum class ExecutionType
     {
         COMMAND,
-        CREATE_COMMAND,
-        DELETE_COMMAND,
-        CREATE_FOLDER,
-        DELETE_FOLDER,
         MOVE_FOLDER,
+        COMBO_EXECUTION,
+
+        CREATE_COMMAND,
+        CREATE_FOLDER,
+        CREATE_COMBO,
+        
+        DELETE_COMMAND,
+        DELETE_FOLDER,
+        DELETE_COMBO,
+
         RESET_FOLDER,
         RESET_ALL,
+
         MOVE,
-        CREATE_COMBO,
-        COMBO_EXECUTION,
+        
         DISPLAY_HELP,
         QUIT
     };
@@ -35,9 +41,10 @@ private:
     get_element_from_index(std::map<std::string, Folder> &map, std::string &current_folder,
                            size_t index);
 
-    std::pair<ExecutionType, std::string> execute_execution(std::map<std::string, Folder> &map,
+    ExecutionType execute_execution(std::map<std::string, Folder> &map,
                           std::string &current_folder, Tokens &tokens,
                           std::string &home_path);
+    
 
     ExecutionType execute_create_command(std::map<std::string, Folder> &map,
                           std::string &current_folder, Tokens &tokens,
