@@ -28,7 +28,7 @@ Add files to a commit, set a commit message, see the changes in your repository.
 
  **Here is how to use the command we just created:**
 
-![final-2022-04-28_23 26 38](https://user-images.githubusercontent.com/53370597/165849013-3814ea42-bf85-4e0f-a7ba-197344c9b8b2.gif)
+![newgif-2022-04-29_18 22 00](https://user-images.githubusercontent.com/53370597/165984987-a9e0a7a2-6837-426c-8cae-70e3e5d8245e.gif)
 
 ### Fast project C++ Setup
 Create your project setup quickly with this kind of command.
