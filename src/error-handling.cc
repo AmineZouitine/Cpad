@@ -45,9 +45,9 @@ ErrorHandling::Error ErrorHandling::check_error(std::map<std::string, Folder> &m
     case ArgumentType::ELEMENT_TYPE::EXECUTION:
         return check_execution(map, tokens, current_folder);
     case ArgumentType::ELEMENT_TYPE::CREATE_COMMAND:
-        return check_create_combo(map, tokens, current_folder);
+        return check_create_command(map, tokens, current_folder);
     case ArgumentType::ELEMENT_TYPE::CREATE_FOLDER:
-        return check_create_folder(map, tokens, current_folder);
+        return check_create_folder(map, tokens);
     case ArgumentType::ELEMENT_TYPE::DELETE:
         return check_delete(map, tokens, current_folder);
     case ArgumentType::ELEMENT_TYPE::MOVE:
@@ -55,9 +55,9 @@ ErrorHandling::Error ErrorHandling::check_error(std::map<std::string, Folder> &m
     case ArgumentType::ELEMENT_TYPE::RESET_FOLDER:
         return check_reset_folder(map, tokens, current_folder);
     case ArgumentType::ELEMENT_TYPE::RESET_ALL:
-        return check_reset_all(map, tokens, current_folder);
+        return check_reset_all();
     case ArgumentType::ELEMENT_TYPE::CREATE_COMBO:
-        return check_create_combo(map, tokens, current_folder);
+        return check_create_combo(tokens);
     }
 
     return Error::INVALID_INPUT;

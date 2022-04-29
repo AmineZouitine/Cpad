@@ -188,15 +188,6 @@ void error_handling(std::map<std::string, Folder> &map, std::string &key,
     }
 }
 
-std::pair<std::string, bool>
-get_element_from_index(std::map<std::string, Folder> &map, std::string &key,
-                       size_t index)
-{
-    auto current = map[key].get_elements()[index];
-    std::pair<std::string, bool> result{ current.get_name(),
-                                         current.get_is_folder() };
-    return result;
-}
 
 bool is_command(std::string &cmd)
 {
