@@ -10,7 +10,6 @@ class ErrorHandling : public Singleton<ErrorHandling>
     public:
         enum class Error
         {
-
             COMMAND_ERROR_NAME,
             FOLDER_ERROR_NAME,
             BIG_INDEX,

@@ -7,10 +7,14 @@
 #include "element.hh"
 #include "folder.hh"
 #include "singleton.hh"
+#include "error-handling.hh"
+#include "executor.hh"
 
 class Display : public Singleton<Display>
 {
 public:
-    void display(std::string &key, std::map<std::string, Folder> &map);
+    void display_error(ErrorHandling::Error error);
+    void display_executor(Executor::ExecutionType execution);
+    void display(std::map<std::string, Folder> &map, std::string& current_folder);
     void display_helper();
 };
