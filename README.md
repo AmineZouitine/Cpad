@@ -21,7 +21,8 @@ cpad
 ```
 
 ### 🌗 Enable/Disable emojis 
-Emoji are great, but can cause display problems on someconfigurations.
+Emoji are great, but can cause display problems on some configurations.
+
 To enable/disable cpad take positional arguments *(you only need to type it once, your preference will be saved)*.
 
 🌕 **Enable**
@@ -37,14 +38,14 @@ cpad 0
 ```
 ### Interesting examples of usage
 
-In these examples, you will discover the following elements: : **-cb** **[cb]** **[?]**.
+In these examples, you will discover the following elements: **-cb** **[cb]** **[?]**.
 They are explained in the features section, but quickly :
 
 **-cb** - Allows you to create a combo command.
 
-**[cb]** - Is the separator between the commands
+**[cb]** - Is the separator between the commands.
 
-**[?]** - Is a template allowing the user to give a custom argument
+**[?]** - Is a template allowing the user to give a custom argument.
 
 ### Fast push on Github
 Add files to a commit, set a commit message, see the changes in your repository. Push your changes to the branch of your choice.
