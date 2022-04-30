@@ -4,7 +4,9 @@
 
 ## 👨🏽‍💻 Installation
 ### Prebuilt binaries
-You only need this command in your terminal.
+Download the binary depending on your configuration here: https://github.com/AmineZouitine/Cpad/releases
+
+Then you just need to enter this command in your terminal:
 ```sh
 tar -xf <downloaded_archive> cpad && sudo mv cpad /usr/local/bin
 ````
