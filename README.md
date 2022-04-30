@@ -1,4 +1,4 @@
-# Cpad
+#  📝Cpad
 
 **Do you use several commands in your terminal, one after the other?** This tool allows you to combine **multiple templated** bash commands with the alias of your choice and many others.
 
