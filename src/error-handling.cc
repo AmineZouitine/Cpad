@@ -145,7 +145,17 @@ ErrorHandling::Error ErrorHandling::check_reset_all()
 
 ErrorHandling::Error ErrorHandling::check_create_combo(Tokens &tokens)
 {
-    return tokens.second.size() == 1 ? Error::INVALID_INPUT : Error::NONE;
+    if (tokens.second.size() < 2)
+        return Error::NEED_MORE_ARGUMENTS;
+    auto elem = tokens.second[1];
+    if (elem.size() == 2 && elem[0] == '{'
+                && elem[1] == '}')
+        return Error::INVALID_INPUT; 
+    if (elem.size() >= 3 && elem[0] == '{'
+                && elem[elem.size() - 1] == '}')
+        if (tokens.second.size() < 3)
+            return Error::NEED_MORE_ARGUMENTS;
+    return Error::NONE;
 }
 
 ErrorHandling::Error ErrorHandling::check_delete(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)

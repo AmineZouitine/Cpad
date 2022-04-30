@@ -79,9 +79,11 @@ int main(int argc, char** argv)
     auto home_path = std::string(getenv("HOME")) + "/.cpad";
     std::ifstream cpad_file;
     home_file_check(cpad_file, home_path);
-    bool display_emoji = check_arguments(argc, argv);
 
-    rewrite(home_path, display_emoji);
+    auto lines = get_all_lines(home_path);
+    bool display_emoji = check_arguments(argc, lines, argv);
+
+    rewrite(home_path, lines, display_emoji);
     auto map = Convertor::instance().read(home_path, display_emoji);
 
     launch(map, home_path, display_emoji);

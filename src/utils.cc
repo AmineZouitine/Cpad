@@ -11,15 +11,23 @@ void home_file_check(std::ifstream &cpad_file, std::string &home_path)
 }
 
 
-bool check_arguments(int argc, char** argv)
+bool check_arguments(int argc, std::vector<std::string>& lines, char** argv)
 {
     std::string False = "0";
+    std::string True = "1";
     if (argc == 2 && argv[1] == False)
         return false;
-    return true;
+    if (argc == 2 && argv[1] == True)
+        return true;
+    std::stringstream stream(lines[0]);
+    std::string token;
+    stream >> token;
+    stream >> token;
+    return token == "TRUE" ? true : false;
+    
 }
 
-bool is_same_emoji_value(std::vector<std::string> lines, bool value)
+bool is_same_emoji_value(std::vector<std::string>& lines, bool value)
 {
     std::stringstream stream(lines[0]);
     std::string token;
@@ -28,9 +36,8 @@ bool is_same_emoji_value(std::vector<std::string> lines, bool value)
     return (token == "TRUE" && value == true) || (token == "FALSE" && value == false);
 }
 
-void rewrite(std::string& path, bool display_emoji)
+void rewrite(std::string& path, std::vector<std::string>& lines, bool display_emoji)
 {
-    auto lines = get_all_lines(path);
     if (is_same_emoji_value(lines, display_emoji))
         return;
 
