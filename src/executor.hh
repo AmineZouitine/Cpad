@@ -31,13 +31,14 @@ public:
         MOVE,
         
         DISPLAY_HELP,
+        CLEAR,
         QUIT
     };
     using executor_result = std::pair<ExecutionType, std::string>;
 
     executor_result execute(std::map<std::string, Folder> &map,
                           std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
+                          std::string &home_path, Element& element);
 private:
 
     Element&
@@ -46,32 +47,22 @@ private:
 
     executor_result execute_execution(std::map<std::string, Folder> &map,
                           std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
+                          Element& elem_combo);
     
 
     executor_result execute_create_command(std::map<std::string, Folder> &map,
-                          std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
+                          std::string &current_folder, Tokens &tokens);
 
     executor_result execute_create_folder(std::map<std::string, Folder> &map,
-                          std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
+                          std::string &current_folder, Tokens &tokens);
     executor_result execute_delete(std::map<std::string, Folder> &map,
-                          std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
+                          std::string &current_folder, Tokens &tokens);
     executor_result execute_move(std::map<std::string, Folder> &map,
-                          std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
+                          std::string &current_folder, Tokens &tokens);
     executor_result execute_reset_folder(std::map<std::string, Folder> &map,
-                          std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
-    executor_result execute_reset_all(std::map<std::string, Folder> &map,
-                          std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
+                          std::string &current_folder, Tokens &tokens);
+    executor_result execute_reset_all(std::map<std::string, Folder> &map);
     executor_result execute_create_combo(std::map<std::string, Folder> &map,
-                          std::string &current_folder, Tokens &tokens,
-                          std::string &home_path);
+                          std::string &current_folder, Tokens &tokens);
 
-    bool is_template(std::string command);
-    void remplace_templates(std::string &command, bool clear);
 };

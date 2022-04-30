@@ -1,9 +1,9 @@
 #include "argument-type.hh"
+#include <iostream>
 
 
 ArgumentType::ELEMENT_TYPE ArgumentType::convert_to_element_type(std::string& argument)
 {
-
     if (argument == "-ac")
         return ELEMENT_TYPE::CREATE_COMMAND;
     else if (argument == "-af")

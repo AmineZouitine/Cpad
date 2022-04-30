@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <unistd.h>
+#include <iostream>
 
 ErrorHandling::Error ErrorHandling::parsing_int(std::map<std::string, Folder> &map,
                   std::string &current_folder, std::string &input)
@@ -16,7 +17,7 @@ ErrorHandling::Error ErrorHandling::parsing_int(std::map<std::string, Folder> &m
         return Error::BIG_INDEX;
     }
     size_t value_t = static_cast<size_t>(value);
-    if (value_t >= map[current_folder].get_elements().size() || value < 0)
+    if (value < 0 || value_t >= map[current_folder].get_elements().size())
         return Error::OUT_OF_RANGE;
     return Error::NONE;
 }
@@ -73,8 +74,9 @@ ErrorHandling::Error ErrorHandling::check_execution(std::map<std::string, Folder
 
     if (!is_number && !is_valid_command)
         return Error::INVALID_INPUT;
-    
-    return parsing_int(map, current_folder, argument);
+    if (is_number)
+        return parsing_int(map, current_folder, argument);
+    return Error::NONE;
 }
 
 ErrorHandling::Error ErrorHandling::check_create_command(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)
@@ -121,9 +123,9 @@ ErrorHandling::Error ErrorHandling::check_move(std::map<std::string, Folder> &ma
     auto error_parsing_src = parsing_int(map, current_folder, src_index);
     auto error_parsing_dst = parsing_int(map, current_folder, dst_index);
 
-    return error_parsing_src != Error::NONE || error_parsing_dst != Error::NONE
-        ? error_parsing_src
-        : Error::NONE;
+    return error_parsing_src == Error::NONE && error_parsing_dst == Error::NONE
+        ? Error::NONE
+        : error_parsing_src == Error::NONE ? error_parsing_dst : error_parsing_dst;
 }
 
 ErrorHandling::Error ErrorHandling::check_reset_folder(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)

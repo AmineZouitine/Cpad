@@ -23,21 +23,44 @@ void home_file_check(std::ifstream &cpad_file, std::string &home_path)
     }
 }
 
+void manage_directory(std::stack<std::string> &last_folders,
+                      std::string &current_folder,
+                      Executor::executor_result executor)
+{
+    if (executor.first == Executor::ExecutionType::MOVE_FOLDER)
+    {
+        last_folders.emplace(current_folder);
+        current_folder = executor.second;
+    }
+    else if (executor.first == Executor::ExecutionType::BACK_FOLDER)
+    {
+        current_folder = last_folders.top();
+        last_folders.pop();
+        last_folders.emplace(current_folder);
+    }
+}
+
 void launch(std::map<std::string, Folder> &map, std::string &home_path)
 {
-
-    std::string command_input;
-    std::string current_folder = ".";
     std::stack<std::string> last_folders;
-    Executor::ExecutionType executor = Executor::ExecutionType::QUIT;
+    std::string current_folder = ".";
+
+    Executor::executor_result executor;
+    std::string command_input;
     do
     {
-        Display::instance().display(map, current_folder);
-        std::getline(std::cin, command_input);
+        Element combo;
+        executor = Executor::executor_result(Executor::ExecutionType::CLEAR, "");
 
+        Display::instance().display(map, current_folder);
+        std::cout << "Choose your command ➜ ";
+        std::getline(std::cin, command_input);
         if (command_input.empty())
+        {
+            Display::instance().display_executor(executor, combo, true);
             continue;
-        
+        }
+
         auto tokens = Scaner::instance().scan(command_input);
         auto error = ErrorHandling::instance().check_error(map, tokens, current_folder);
 
@@ -46,17 +69,11 @@ void launch(std::map<std::string, Folder> &map, std::string &home_path)
             Display::instance().display_error(error);
             continue;
         }
-        auto executor = Executor::instance().execute(map, current_folder, tokens, home_path);
-        if (executor == Executor::ExecutionType::MOVE_FOLDER)
-        {
-            last_folders.emplace(current_folder);
-            current_folder = 
-        }
-        else
-        {
-            
-        }
-    } while (executor != Executor::ExecutionType::QUIT);
+
+        executor = Executor::instance().execute(map, current_folder, tokens, home_path, combo);
+        Display::instance().display_executor(executor, combo, true);
+        manage_directory(last_folders, current_folder, executor);
+    } while (executor.first != Executor::ExecutionType::QUIT);
 }
 
 int main()
