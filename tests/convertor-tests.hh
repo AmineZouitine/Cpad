@@ -449,10 +449,3 @@ TEST(convertor, write_name_combo)
     ASSERT_EQ(map["."].get_elements()[4].get_name(), "LE SAINT COMBO");
     ASSERT_EQ(map["."].get_elements()[4].get_combo_elements_().size(), 2);
 }
-
-
-TEST(convertor, rewrite)
-{
-    std::string path = "./test-ressources/.cpad_utils";
-    rewrite(path, false);
-}
