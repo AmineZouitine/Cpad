@@ -33,7 +33,7 @@ TEST(convertor, easy_parsing)
 TEST(convertor, easy_combo)
 {
     std::string path = "./test-ressources/.cpad_combo";
-    
+
     bool emoji = true;
     auto map = Convertor::instance().read(path, emoji);
 
@@ -201,7 +201,6 @@ TEST(convertor, write_add_command)
 {
     std::string path1 = "./test-ressources/.cpad_medium";
     std::string path = "./test-ressources/.cpad_medium_test1";
-
 
     bool emoji = true;
     auto map = Convertor::instance().read(path1, emoji);

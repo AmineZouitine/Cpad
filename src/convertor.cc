@@ -6,7 +6,6 @@
 
 #include "element.hh"
 
-
 void Convertor::add_command(std::map<std::string, Folder> &map,
                             std::string &key, std::string &command)
 {
@@ -87,7 +86,7 @@ void Convertor::combo(std::map<std::string, Folder> &map, std::string &key,
     map[key].get_elements().push_back(combo);
 }
 
-std::map<std::string, Folder> Convertor::read(std::string &path, bool& emoji)
+std::map<std::string, Folder> Convertor::read(std::string &path, bool &emoji)
 {
     auto map = std::map<std::string, Folder>();
 
@@ -170,10 +169,11 @@ std::map<std::string, Folder> Convertor::read(std::string &path, bool& emoji)
     return map;
 }
 
-void Convertor::write(std::map<std::string, Folder> &map, std::string &path, bool emoji)
+void Convertor::write(std::map<std::string, Folder> &map, std::string &path,
+                      bool emoji)
 {
     std::ofstream MyFile(path);
-    
+
     MyFile << "EMOJI " << (emoji ? "TRUE" : "FALSE") << "\n";
     for (auto &folder : map)
     {
