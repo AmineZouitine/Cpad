@@ -20,7 +20,7 @@ cpad
 
 ### 🌗 Enable/Disable emojis 
 Emoji are great, but can cause display problems on someconfigurations.
-To enable/disable cpad take positional arguments.
+To enable/disable cpad take positional arguments *(you only need to type it once, your preference will be saved)*.
 
 🌕 **Enable**
 
