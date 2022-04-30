@@ -1,8 +1,9 @@
 #include "argument-type.hh"
+
 #include <iostream>
 
-
-ArgumentType::ELEMENT_TYPE ArgumentType::convert_to_element_type(std::string& argument)
+ArgumentType::ELEMENT_TYPE
+ArgumentType::convert_to_element_type(std::string &argument)
 {
     if (argument == "-ac")
         return ELEMENT_TYPE::CREATE_COMMAND;
@@ -39,5 +40,4 @@ int ArgumentType::number_arguments_expected(ELEMENT_TYPE element_type)
         return -1;
     }
     return -1;
-
 }

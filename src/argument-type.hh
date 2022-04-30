@@ -1,7 +1,8 @@
 #pragma once
 
-#include "singleton.hh"
 #include <string>
+
+#include "singleton.hh"
 
 class ArgumentType : public Singleton<ArgumentType>
 {
@@ -18,7 +19,6 @@ public:
         CREATE_COMBO
     };
 
-
-    ELEMENT_TYPE convert_to_element_type(std::string& argument);
+    ELEMENT_TYPE convert_to_element_type(std::string &argument);
     int number_arguments_expected(ELEMENT_TYPE element_type);
 };

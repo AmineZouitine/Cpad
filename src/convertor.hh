@@ -9,8 +9,9 @@
 class Convertor : public Singleton<Convertor>
 {
 public:
-    std::map<std::string, Folder> read(std::string &path, bool& emoji);
-    void write(std::map<std::string, Folder> &map, std::string &path, bool emoji);
+    std::map<std::string, Folder> read(std::string &path, bool &emoji);
+    void write(std::map<std::string, Folder> &map, std::string &path,
+               bool emoji);
 
     void add_command(std::map<std::string, Folder> &map, std::string &key,
                      std::string &command);

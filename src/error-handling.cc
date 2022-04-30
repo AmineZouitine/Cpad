@@ -1,11 +1,12 @@
 #include "error-handling.hh"
 
 #include <algorithm>
-#include <unistd.h>
 #include <iostream>
+#include <unistd.h>
 
-ErrorHandling::Error ErrorHandling::parsing_int(std::map<std::string, Folder> &map,
-                  std::string &current_folder, std::string &input)
+ErrorHandling::Error
+ErrorHandling::parsing_int(std::map<std::string, Folder> &map,
+                           std::string &current_folder, std::string &input)
 {
     int value;
     try
@@ -32,10 +33,11 @@ ErrorHandling::Error ErrorHandling::check_arguments_size(Tokens &tokens)
     else if (current_size < arguments_expected)
         return Error::NEED_MORE_ARGUMENTS;
     return Error::NONE;
-
 }
 
-ErrorHandling::Error ErrorHandling::check_error(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)
+ErrorHandling::Error
+ErrorHandling::check_error(std::map<std::string, Folder> &map, Tokens &tokens,
+                           std::string &current_folder)
 {
     auto error_arguments_size = check_arguments_size(tokens);
     if (error_arguments_size != Error::NONE
@@ -65,11 +67,12 @@ ErrorHandling::Error ErrorHandling::check_error(std::map<std::string, Folder> &m
     return Error::INVALID_INPUT;
 }
 
-ErrorHandling::Error ErrorHandling::check_execution(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)
+ErrorHandling::Error
+ErrorHandling::check_execution(std::map<std::string, Folder> &map,
+                               Tokens &tokens, std::string &current_folder)
 {
     std::string argument = tokens.second[0];
-    bool is_number = std::all_of(argument.cbegin(), argument.cend(),
-                         ::isdigit);
+    bool is_number = std::all_of(argument.cbegin(), argument.cend(), ::isdigit);
     bool is_valid_command = (current_folder != "." && argument == "b")
         || argument == "h" || argument == "q";
 
@@ -80,7 +83,9 @@ ErrorHandling::Error ErrorHandling::check_execution(std::map<std::string, Folder
     return Error::NONE;
 }
 
-ErrorHandling::Error ErrorHandling::check_create_command(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)
+ErrorHandling::Error
+ErrorHandling::check_create_command(std::map<std::string, Folder> &map,
+                                    Tokens &tokens, std::string &current_folder)
 {
     std::string argument = tokens.second[1];
     for (auto &elm : map[current_folder].get_elements())
@@ -94,7 +99,9 @@ ErrorHandling::Error ErrorHandling::check_create_command(std::map<std::string, F
     return Error::NONE;
 }
 
-ErrorHandling::Error ErrorHandling::check_create_folder(std::map<std::string, Folder> &map, Tokens &tokens)
+ErrorHandling::Error
+ErrorHandling::check_create_folder(std::map<std::string, Folder> &map,
+                                   Tokens &tokens)
 {
     std::string argument = tokens.second[1];
     if (argument == ".")
@@ -111,7 +118,9 @@ ErrorHandling::Error ErrorHandling::check_create_folder(std::map<std::string, Fo
     return Error::NONE;
 }
 
-ErrorHandling::Error ErrorHandling::check_move(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)
+ErrorHandling::Error
+ErrorHandling::check_move(std::map<std::string, Folder> &map, Tokens &tokens,
+                          std::string &current_folder)
 {
     std::string src_index = tokens.second[1];
     std::string dst_index = tokens.second[2];
@@ -119,17 +128,19 @@ ErrorHandling::Error ErrorHandling::check_move(std::map<std::string, Folder> &ma
     if (!std::all_of(src_index.begin(), src_index.end(), ::isdigit)
         || !std::all_of(dst_index.begin(), dst_index.end(), ::isdigit))
         return Error::INVALID_INPUT;
-    
 
     auto error_parsing_src = parsing_int(map, current_folder, src_index);
     auto error_parsing_dst = parsing_int(map, current_folder, dst_index);
 
     return error_parsing_src == Error::NONE && error_parsing_dst == Error::NONE
         ? Error::NONE
-        : error_parsing_src == Error::NONE ? error_parsing_dst : error_parsing_dst;
+        : error_parsing_src == Error::NONE ? error_parsing_dst
+                                           : error_parsing_dst;
 }
 
-ErrorHandling::Error ErrorHandling::check_reset_folder(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)
+ErrorHandling::Error
+ErrorHandling::check_reset_folder(std::map<std::string, Folder> &map,
+                                  Tokens &tokens, std::string &current_folder)
 {
     std::string argument = tokens.second[1];
     if (!std::all_of(argument.cbegin(), argument.cend(), ::isdigit))
@@ -148,21 +159,20 @@ ErrorHandling::Error ErrorHandling::check_create_combo(Tokens &tokens)
     if (tokens.second.size() < 2)
         return Error::NEED_MORE_ARGUMENTS;
     auto elem = tokens.second[1];
-    if (elem.size() == 2 && elem[0] == '{'
-                && elem[1] == '}')
-        return Error::INVALID_INPUT; 
-    if (elem.size() >= 3 && elem[0] == '{'
-                && elem[elem.size() - 1] == '}')
+    if (elem.size() == 2 && elem[0] == '{' && elem[1] == '}')
+        return Error::INVALID_INPUT;
+    if (elem.size() >= 3 && elem[0] == '{' && elem[elem.size() - 1] == '}')
         if (tokens.second.size() < 3)
             return Error::NEED_MORE_ARGUMENTS;
     return Error::NONE;
 }
 
-ErrorHandling::Error ErrorHandling::check_delete(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)
+ErrorHandling::Error
+ErrorHandling::check_delete(std::map<std::string, Folder> &map, Tokens &tokens,
+                            std::string &current_folder)
 {
     std::string argument = tokens.second[1];
     if (!std::all_of(argument.cbegin(), argument.cend(), ::isdigit))
         return Error::INVALID_INPUT;
     return parsing_int(map, current_folder, argument);
 }
-
