@@ -33,6 +33,7 @@ cpad 1
 ```sh
 cpad 0
 ```
+### Interesting examples of usage
 
 In these examples, you will discover the following elements: : **-cb** **[cb]** **[?]**.
 They are explained in the features section, but quickly :
