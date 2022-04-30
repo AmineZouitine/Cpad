@@ -167,7 +167,7 @@ void Display::display_executor(Executor::executor_result executor,
         system("clear");
         return;
     case Executor::ExecutionType::QUIT:
-        set_display_line(display_line, "Bye !", "✔️ ", "", BOLDGREEN, emoji);
+        set_display_line(display_line, "See you soon !", "👋 ", "", BOLDGREEN, emoji);
         break;
     case Executor::ExecutionType::COMBO_EXECUTION:
         return execute_combo(executor.second, display_line, element_combo, emoji);
@@ -189,10 +189,10 @@ void Display::display(std::map<std::string, Folder> &map, std::string& current_f
     for (auto elm : elms)
     {
         if (elm.get_is_folder())
-            std::cout << BOLD << std::to_string(i) << RESET << " ➜ " << BOLDBLUE
+            std::cout << BOLD << std::to_string(i) << RESET << (emoji ? " ➜ " : " - ") << BOLDBLUE
                       << elm.get_name() << (emoji ? " 📁 " : "") << std::endl;
         else if (!elm.get_is_combo())
-            std::cout << BOLD << std::to_string(i) << RESET << " ➜ "
+            std::cout << BOLD << std::to_string(i) << RESET << (emoji ? " ➜ " : " - ")
                       << elm.get_name() << std::endl;
         else
         {

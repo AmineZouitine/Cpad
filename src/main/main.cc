@@ -6,22 +6,15 @@
 #include <iostream>
 #include <stack>
 #include <string>
+#include <sstream>
 
 #include "../scaner.hh"
 #include "../argument-type.hh"
 #include "../convertor.hh"
 #include "../display.hh"
+#include "../utils.hh"
 #include "../executor.hh"
 
-void home_file_check(std::ifstream &cpad_file, std::string &home_path)
-{
-    cpad_file.open(home_path);
-    if (!cpad_file)
-    {
-        std::ofstream outfile(home_path);
-        outfile << "CURRENT .\n--STOP--";
-    }
-}
 
 void manage_directory(std::stack<std::string> &last_folders,
                       std::string &current_folder,
@@ -44,7 +37,7 @@ void manage_directory(std::stack<std::string> &last_folders,
     }
 }
 
-void launch(std::map<std::string, Folder> &map, std::string &home_path)
+void launch(std::map<std::string, Folder> &map, std::string &home_path, bool display_emoji)
 {
     std::stack<std::string> last_folders;
     std::string current_folder = ".";
@@ -56,12 +49,12 @@ void launch(std::map<std::string, Folder> &map, std::string &home_path)
         Element combo;
         executor = Executor::executor_result(Executor::ExecutionType::CLEAR, "");
 
-        Display::instance().display(map, current_folder);
+        Display::instance().display(map, current_folder, display_emoji);
         std::cout << "Choose your command ➜ ";
         std::getline(std::cin, command_input);
         if (command_input.empty())
         {
-            Display::instance().display_executor(executor, combo, true);
+            Display::instance().display_executor(executor, combo, true, display_emoji);
             continue;
         }
 
@@ -70,48 +63,26 @@ void launch(std::map<std::string, Folder> &map, std::string &home_path)
 
         if (error != ErrorHandling::Error::NONE)
         {
-            Display::instance().display_error(error, true);
+            Display::instance().display_error(error, display_emoji);
             continue;
         }
 
-        executor = Executor::instance().execute(map, current_folder, tokens, home_path, combo);
-        Display::instance().display_executor(executor, combo, true);
+        executor = Executor::instance().execute(map, current_folder, tokens, home_path, combo, display_emoji);
+        Display::instance().display_executor(executor, combo, display_emoji);
         manage_directory(last_folders, current_folder, executor);
     } while (executor.first != Executor::ExecutionType::QUIT);
 }
 
-bool check_arguments(int argc, char** argv)
-{
-    if (argc == 2 && argv[1] == "0")
-        return false;
-    return true;
-}
-
-void check_cpad_file(std::string& home_path, bool emoji)
-{
-    std::ofstream MyFile(home_path);
-    std::ifstream file(home_path);
-
-    std::string token;
-    file >> token;
-    if (token != "EMOJI")
-    {
-        std::string command_preprend = "echo -e \"EMOJI "
-            + std::string(emoji ? "TRUE" : "FALSE") + "$(cat " + home_path
-            + ")\" > " + home_path;
-        system(command_preprend.c_str());
-    }
-
-}
 
 int main(int argc, char** argv)
 {
-    bool display_emoji = check_arguments(argc, argv);
     auto home_path = std::string(getenv("HOME")) + "/.cpad";
     std::ifstream cpad_file;
     home_file_check(cpad_file, home_path);
+    bool display_emoji = check_arguments(argc, argv);
 
-    auto map = Convertor::instance().read(home_path);
+    rewrite(home_path, display_emoji);
+    auto map = Convertor::instance().read(home_path, display_emoji);
 
-    launch(map, home_path);
+    launch(map, home_path, display_emoji);
 }

@@ -136,7 +136,7 @@ Executor::executor_result Executor::execute(std::map<std::string, Folder> &map,
                                           std::string &current_folder,
                                           Tokens &tokens,
                                           std::string& home_path,
-                                          Element& element)
+                                          Element& element, bool emoji)
 {
     ArgumentType::ELEMENT_TYPE element_type =
         ArgumentType::instance().convert_to_element_type(tokens.second[0]);
@@ -169,6 +169,6 @@ Executor::executor_result Executor::execute(std::map<std::string, Folder> &map,
         execution_type = execute_create_combo(map, current_folder, tokens);
         break;
     }
-    Convertor::instance().write(map, home_path);
+    Convertor::instance().write(map, home_path, emoji);
     return execution_type;
 }

@@ -87,7 +87,7 @@ void Convertor::combo(std::map<std::string, Folder> &map, std::string &key,
     map[key].get_elements().push_back(combo);
 }
 
-std::map<std::string, Folder> Convertor::read(std::string &path)
+std::map<std::string, Folder> Convertor::read(std::string &path, bool& emoji)
 {
     auto map = std::map<std::string, Folder>();
 
@@ -154,6 +154,11 @@ std::map<std::string, Folder> Convertor::read(std::string &path)
             current_combot.get_combo_elements_().clear();
             current_combot.set_name("");
         }
+        else if (token == "EMOJI")
+        {
+            ss >> token;
+            emoji = token == "TRUE" ? true : false;
+        }
         else // STOP TOKEN
         {
             map.insert({ key, elements_ });
@@ -165,10 +170,11 @@ std::map<std::string, Folder> Convertor::read(std::string &path)
     return map;
 }
 
-void Convertor::write(std::map<std::string, Folder> &map, std::string &path)
+void Convertor::write(std::map<std::string, Folder> &map, std::string &path, bool emoji)
 {
     std::ofstream MyFile(path);
-
+    
+    MyFile << "EMOJI " << (emoji ? "TRUE" : "FALSE") << "\n";
     for (auto &folder : map)
     {
         MyFile << "CURRENT " + folder.first + '\n';

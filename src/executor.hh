@@ -38,7 +38,7 @@ public:
 
     executor_result execute(std::map<std::string, Folder> &map,
                           std::string &current_folder, Tokens &tokens,
-                          std::string &home_path, Element& element);
+                          std::string &home_path, Element& element, bool emoji);
 private:
 
     Element&
