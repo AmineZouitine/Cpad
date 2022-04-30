@@ -5,6 +5,7 @@
 
 #include "folder.hh"
 #include "singleton.hh"
+#include "scaner.hh"
 
 class Executor : public Singleton<Executor>
 {
@@ -12,33 +13,56 @@ public:
     enum class ExecutionType
     {
         COMMAND,
-        CREATE_COMMAND,
-        DELETE_COMMAND,
-        CREATE_FOLDER,
-        DELETE_FOLDER,
         MOVE_FOLDER,
+        BACK_FOLDER,
+        COMBO_EXECUTION,
+
+        CREATE_COMMAND,
+        CREATE_FOLDER,
+        CREATE_COMBO,
+        
+        DELETE_COMMAND,
+        DELETE_FOLDER,
+        DELETE_COMBO,
+
         RESET_FOLDER,
         RESET_ALL,
-        COMMAND_ERROR_NAME,
-        FOLDER_ERROR_NAME,
-        EMPTY_NAME,
-        EMPTY_INDEX,
-        NO_INT_INDEX,
-        DELETE_EMPTY_NAME,
-        SWAP,
-        CREATE_COMBO,
-        COMBO,
-        SWAP_WRONG_INDEX,
-        BIG_INDEX,
-        OUT_OF_RANGE,
-        RESET_EMPTY_NAME,
-        RESET_ALL_TO_MUCH_ARGS,
-        NONE
+
+        MOVE,
+        
+        DISPLAY_HELP,
+        CLEAR,
+        QUIT
     };
-    bool execute(std::string &command_name, Executor::ExecutionType &exec_type,
-                 Element &combot_element, bool clear = true);
-    void command_launcher(std::map<std::string, Folder> &map,
-                          std::string &home_path);
-    bool is_template(std::string command);
-    void remplace_templates(std::string &command, bool clear);
+    using executor_result = std::pair<ExecutionType, std::string>;
+
+    executor_result execute(std::map<std::string, Folder> &map,
+                          std::string &current_folder, Tokens &tokens,
+                          std::string &home_path, Element& element, bool emoji);
+private:
+
+    Element&
+    get_element_from_index(std::map<std::string, Folder> &map, std::string &current_folder,
+                           size_t index);
+
+    executor_result execute_execution(std::map<std::string, Folder> &map,
+                          std::string &current_folder, Tokens &tokens,
+                          Element& elem_combo);
+    
+
+    executor_result execute_create_command(std::map<std::string, Folder> &map,
+                          std::string &current_folder, Tokens &tokens);
+
+    executor_result execute_create_folder(std::map<std::string, Folder> &map,
+                          std::string &current_folder, Tokens &tokens);
+    executor_result execute_delete(std::map<std::string, Folder> &map,
+                          std::string &current_folder, Tokens &tokens);
+    executor_result execute_move(std::map<std::string, Folder> &map,
+                          std::string &current_folder, Tokens &tokens);
+    executor_result execute_reset_folder(std::map<std::string, Folder> &map,
+                          std::string &current_folder, Tokens &tokens);
+    executor_result execute_reset_all(std::map<std::string, Folder> &map);
+    executor_result execute_create_combo(std::map<std::string, Folder> &map,
+                          std::string &current_folder, Tokens &tokens);
+
 };
