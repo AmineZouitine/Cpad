@@ -147,8 +147,10 @@ void Display::display_executor(Executor::executor_result executor,
     case Executor::ExecutionType::DELETE_COMBO:
         set_display_line(display_line, "Deletion of combo:", "✔️ ", "", BOLDGREEN, emoji);
         break;
-    case Executor::ExecutionType::MOVE_FOLDER:
     case Executor::ExecutionType::BACK_FOLDER:
+        set_display_line(display_line, "You have returned to your old file", "✔️ ", "", BOLDGREEN, emoji);
+        break;
+    case Executor::ExecutionType::MOVE_FOLDER:
         set_display_line(display_line, "You move into the folder:", "✔️ ", "", BOLDGREEN, emoji);
         break;
     case Executor::ExecutionType::RESET_FOLDER:

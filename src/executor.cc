@@ -97,7 +97,7 @@ Executor::execute_reset_folder(std::map<std::string, Folder> &map,
     size_t value = std::stoi(tokens.second[1]) - 1;
     auto element = get_element_from_index(map, current_folder, value);
     Convertor::instance().reset_folder(map, element.get_name());
-    return executor_result(Executor::ExecutionType::RESET_FOLDER, tokens.second[1]);
+    return executor_result(Executor::ExecutionType::RESET_FOLDER, element.get_name());
 }
 
 Executor::executor_result
