@@ -4,11 +4,35 @@
 
 ## 👨🏽‍💻 Installation
 ### Prebuilt binaries
-  #### ⭐️ Beautiful version (It may have some issues if you don't have the right fonts) 
-  
-  #### 🪶 Soft version
+You only need this command in your terminal.
+```sh
+tar -xf <downloaded_archive> cpad && sudo mv cpad /usr/local/bin
+````
   
 ## ⚡️ Quick start
+
+### Launch Cpad
+
+To use **Cpad**, you must type in your terminal :
+```sh
+cpad
+```
+
+### 🌗 Enable/Disable emojis 
+Emoji are great, but can cause display problems on someconfigurations.
+To enable/disable cpad take positional arguments.
+
+🌕 **Enable**
+
+```sh
+cpad 1 
+```
+
+🌑 **Disable**
+
+```sh
+cpad 0
+```
 
 In these examples, you will discover the following elements: : **-cb** **[cb]** **[?]**.
 They are explained in the features section, but quickly :
