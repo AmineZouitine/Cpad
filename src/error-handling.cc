@@ -38,7 +38,8 @@ ErrorHandling::Error ErrorHandling::check_arguments_size(Tokens &tokens)
 ErrorHandling::Error ErrorHandling::check_error(std::map<std::string, Folder> &map, Tokens &tokens, std::string& current_folder)
 {
     auto error_arguments_size = check_arguments_size(tokens);
-    if (error_arguments_size != Error::NONE)
+    if (error_arguments_size != Error::NONE
+        && tokens.first != ArgumentType::ELEMENT_TYPE::CREATE_COMBO)
         return error_arguments_size;
 
     switch (tokens.first)

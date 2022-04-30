@@ -35,7 +35,7 @@ public:
     void display_error(ErrorHandling::Error error, bool emoji);
     void display_executor(Executor::executor_result executor,
                           Element &element_combo, bool emoji, bool clear = true);
-    void display(std::map<std::string, Folder> &map, std::string& current_folder);
+    void display(std::map<std::string, Folder> &map, std::string& current_folder, bool emoji);
     void display_helper();
     void set_display_line(std::string& display_line, std::string end_str, std::string emoji_str, std::string replace, std::string color,bool emoji);
 private:

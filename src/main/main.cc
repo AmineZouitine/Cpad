@@ -27,7 +27,12 @@ void manage_directory(std::stack<std::string> &last_folders,
                       std::string &current_folder,
                       Executor::executor_result executor)
 {
-    if (executor.first == Executor::ExecutionType::MOVE_FOLDER)
+    if (executor.first == Executor::ExecutionType::RESET_ALL)
+    {
+        current_folder = ".";
+        last_folders = std::stack<std::string>();
+    }
+    else if (executor.first == Executor::ExecutionType::MOVE_FOLDER)
     {
         last_folders.emplace(current_folder);
         current_folder = executor.second;
@@ -36,7 +41,6 @@ void manage_directory(std::stack<std::string> &last_folders,
     {
         current_folder = last_folders.top();
         last_folders.pop();
-        last_folders.emplace(current_folder);
     }
 }
 
@@ -66,7 +70,7 @@ void launch(std::map<std::string, Folder> &map, std::string &home_path)
 
         if (error != ErrorHandling::Error::NONE)
         {
-            Display::instance().display_error(error);
+            Display::instance().display_error(error, true);
             continue;
         }
 
@@ -76,11 +80,37 @@ void launch(std::map<std::string, Folder> &map, std::string &home_path)
     } while (executor.first != Executor::ExecutionType::QUIT);
 }
 
-int main()
+bool check_arguments(int argc, char** argv)
 {
-    std::string home_path = std::string(getenv("HOME")) + "/.cpad";
+    if (argc == 2 && argv[1] == "0")
+        return false;
+    return true;
+}
+
+void check_cpad_file(std::string& home_path, bool emoji)
+{
+    std::ofstream MyFile(home_path);
+    std::ifstream file(home_path);
+
+    std::string token;
+    file >> token;
+    if (token != "EMOJI")
+    {
+        std::string command_preprend = "echo -e \"EMOJI "
+            + std::string(emoji ? "TRUE" : "FALSE") + "$(cat " + home_path
+            + ")\" > " + home_path;
+        system(command_preprend.c_str());
+    }
+
+}
+
+int main(int argc, char** argv)
+{
+    bool display_emoji = check_arguments(argc, argv);
+    auto home_path = std::string(getenv("HOME")) + "/.cpad";
     std::ifstream cpad_file;
     home_file_check(cpad_file, home_path);
+
     auto map = Convertor::instance().read(home_path);
 
     launch(map, home_path);

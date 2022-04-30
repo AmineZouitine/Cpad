@@ -60,7 +60,7 @@ Executor::execute_delete(std::map<std::string, Folder> &map,
                          std::string &current_folder, Tokens &tokens)
 {
     size_t input_value = std::stoi(tokens.second[1]);
-    auto element = get_element_from_index(map, current_folder, input_value);
+    auto element = get_element_from_index(map, current_folder, input_value - 1);
     ExecutionType execution;
     if (element.get_is_folder())
     {
