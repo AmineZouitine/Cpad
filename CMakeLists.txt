@@ -23,7 +23,7 @@ target_link_libraries(${TARGET_NAME} PRIVATE libcpad)
 add_subdirectory(tests/)
 
 add_executable(unit-tests ${TEST_SOURCES_FILES})
-target_link_libraries(unit-tests gtest libcpad)
+target_link_libraries(unit-tests gtest libcpad pthread)
 
 # Discover tests
 include(GoogleTest)
