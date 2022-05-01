@@ -82,7 +82,7 @@ What you should do:
 ```sh
 cp ~/.cpad ~/my_cpad_configuration
 ```
-What your friends should do
+What your friends should do:
 
 ```sh
 mv my_cpad_configuration ~/.cpad
