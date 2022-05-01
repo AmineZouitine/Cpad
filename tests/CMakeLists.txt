@@ -1,0 +1,3 @@
+set(TEST_SOURCES_FILES
+    ${CMAKE_SOURCE_DIR}/tests/main-test.cc
+PARENT_SCOPE)
