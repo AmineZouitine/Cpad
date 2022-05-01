@@ -6,121 +6,6 @@
 
 #include "element.hh"
 
-std::map<std::string, Folder> Convertor::read(std::string &path)
-{
-    auto map = std::map<std::string, Folder>();
-
-    std::string line;
-    std::ifstream file(path);
-    std::vector<Element> elements_;
-    Element current_combot;
-    std::string key;
-    bool in_combo = false;
-    while (std::getline(file, line))
-    {
-        std::stringstream ss(line);
-        std::string token;
-        std::string current_element;
-        ss >> token;
-        if (token == "CURRENT")
-        {
-            size_t count = 0;
-            while (ss >> token)
-            {
-                if (count != 0)
-                    key += ' ';
-                key += token;
-                count++;
-            }
-        }
-        else if (token == "FOLDER" || token == "COMMAND")
-        {
-            bool is_folder = token == "FOLDER";
-            size_t count = 0;
-            while (ss >> token)
-            {
-                if (count != 0)
-                    current_element += ' ';
-                current_element += token;
-                count++;
-            }
-            if (!in_combo)
-                elements_.push_back(Element(current_element, is_folder));
-            else
-                current_combot.get_combo_elements_().push_back(
-                    Element(current_element, is_folder));
-        }
-        else if (token == "NAME")
-        {
-            std::string combo_name;
-            size_t count = 0;
-            while (ss >> token)
-            {
-                if (count != 0)
-                    combo_name += ' ';
-                combo_name += token;
-                count++;
-            }
-            current_combot.set_name(combo_name);
-            combo_name = "";
-        }
-        else if (token == "--COMBO--")
-            in_combo = true;
-        else if (token == "--END-COMBO--")
-        {
-            elements_.push_back(current_combot);
-            in_combo = false;
-            current_combot.get_combo_elements_().clear();
-            current_combot.set_name("");
-        }
-        else // STOP TOKEN
-        {
-            map.insert({ key, elements_ });
-            key.clear();
-            elements_.clear();
-        }
-    }
-
-    return map;
-}
-
-void Convertor::write(std::map<std::string, Folder> &map, std::string &path)
-{
-    std::ofstream MyFile(path);
-
-    for (auto &folder : map)
-    {
-        MyFile << "CURRENT " + folder.first + '\n';
-        for (auto &elem : folder.second.get_elements())
-        {
-            if (elem.get_is_folder())
-                MyFile << "FOLDER ";
-            else if (!elem.get_is_combo())
-                MyFile << "COMMAND ";
-            else
-            {
-                MyFile << "--COMBO--\n";
-                if (!elem.get_name().empty())
-                    MyFile << "NAME " + elem.get_name() + '\n';
-                for (auto &combo : elem.get_combo_elements_())
-                {
-                    if (combo.get_is_folder())
-                        MyFile << "FOLDER ";
-                    else if (!combo.get_is_combo())
-                        MyFile << "COMMAND ";
-                    MyFile << combo.get_name() << '\n';
-                }
-                MyFile << "--END-COMBO--\n";
-                continue;
-            }
-            MyFile << elem.get_name() << '\n';
-        }
-        MyFile << "--STOP--\n";
-    }
-    MyFile.close();
-    return;
-}
-
 void Convertor::add_command(std::map<std::string, Folder> &map,
                             std::string &key, std::string &command)
 {
@@ -199,4 +84,126 @@ void Convertor::combo(std::map<std::string, Folder> &map, std::string &key,
                       Element &combo)
 {
     map[key].get_elements().push_back(combo);
+}
+
+std::map<std::string, Folder> Convertor::read(std::string &path, bool &emoji)
+{
+    auto map = std::map<std::string, Folder>();
+
+    std::string line;
+    std::ifstream file(path);
+    std::vector<Element> elements_;
+    Element current_combot;
+    std::string key;
+    bool in_combo = false;
+    while (std::getline(file, line))
+    {
+        std::stringstream ss(line);
+        std::string token;
+        std::string current_element;
+        ss >> token;
+        if (token == "CURRENT")
+        {
+            size_t count = 0;
+            while (ss >> token)
+            {
+                if (count != 0)
+                    key += ' ';
+                key += token;
+                count++;
+            }
+        }
+        else if (token == "FOLDER" || token == "COMMAND")
+        {
+            bool is_folder = token == "FOLDER";
+            size_t count = 0;
+            while (ss >> token)
+            {
+                if (count != 0)
+                    current_element += ' ';
+                current_element += token;
+                count++;
+            }
+            if (!in_combo)
+                elements_.push_back(Element(current_element, is_folder));
+            else
+                current_combot.get_combo_elements_().push_back(
+                    Element(current_element, is_folder));
+        }
+        else if (token == "NAME")
+        {
+            std::string combo_name;
+            size_t count = 0;
+            while (ss >> token)
+            {
+                if (count != 0)
+                    combo_name += ' ';
+                combo_name += token;
+                count++;
+            }
+            current_combot.set_name(combo_name);
+            combo_name = "";
+        }
+        else if (token == "--COMBO--")
+            in_combo = true;
+        else if (token == "--END-COMBO--")
+        {
+            elements_.push_back(current_combot);
+            in_combo = false;
+            current_combot.get_combo_elements_().clear();
+            current_combot.set_name("");
+        }
+        else if (token == "EMOJI")
+        {
+            ss >> token;
+            emoji = token == "TRUE" ? true : false;
+        }
+        else // STOP TOKEN
+        {
+            map.insert({ key, elements_ });
+            key.clear();
+            elements_.clear();
+        }
+    }
+
+    return map;
+}
+
+void Convertor::write(std::map<std::string, Folder> &map, std::string &path,
+                      bool emoji)
+{
+    std::ofstream MyFile(path);
+
+    MyFile << "EMOJI " << (emoji ? "TRUE" : "FALSE") << "\n";
+    for (auto &folder : map)
+    {
+        MyFile << "CURRENT " + folder.first + '\n';
+        for (auto &elem : folder.second.get_elements())
+        {
+            if (elem.get_is_folder())
+                MyFile << "FOLDER ";
+            else if (!elem.get_is_combo())
+                MyFile << "COMMAND ";
+            else
+            {
+                MyFile << "--COMBO--\n";
+                if (!elem.get_name().empty())
+                    MyFile << "NAME " + elem.get_name() + '\n';
+                for (auto &combo : elem.get_combo_elements_())
+                {
+                    if (combo.get_is_folder())
+                        MyFile << "FOLDER ";
+                    else if (!combo.get_is_combo())
+                        MyFile << "COMMAND ";
+                    MyFile << combo.get_name() << '\n';
+                }
+                MyFile << "--END-COMBO--\n";
+                continue;
+            }
+            MyFile << elem.get_name() << '\n';
+        }
+        MyFile << "--STOP--\n";
+    }
+    MyFile.close();
+    return;
 }

@@ -32,3 +32,13 @@ test
 *.exe
 *.out
 *.app
+
+# Cmake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+cpad
+src/CMakeFiles/
+src/Makefile
+src/cmake_install.cmake
+Makefile

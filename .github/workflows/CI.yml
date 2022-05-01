@@ -11,5 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: gtest
-        run: make check
+      - name: build
+        run: cmake . && make
+      - name: tests
+        run: ./unit-tests
