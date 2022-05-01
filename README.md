@@ -91,6 +91,6 @@ mv my_cpad_configuration ~/.cpad
 
 ## 💞 Acknowledgement
 
-Thanks to [Paul-annet Renoux](https://github.com/DashPolo) and [Oceane Valat](https://github.com/oceane-vlt) for their great contributions on this project.
+Thanks to [Paul-annet Renoux](https://github.com/DashPolo), [Oceane Valat](https://github.com/oceane-vlt) and [Volham22](https://github.com/Volham22) for their great contributions on this project.
 
 And to [Adil Zouitine](https://github.com/AdilZouitine), [Raphael Sourty](https://github.com/raphaelsty) and [Mehdi Zouitine](https://github.com/MehdiZouitine) for their precious advice.
