@@ -11,11 +11,30 @@ Then you just need to enter this command in your terminal:
 tar -xf <downloaded_archive> cpad && sudo mv cpad /usr/local/bin
 ````
 #### 😎 Pro tip (optional)
-Install [rlwrap](https://github.com/hanslub42/rlwrap), and add an [alias](https://www.cyberciti.biz/faq/create-permanent-bash-alias-linux-unix/) in your ~/.bashrc :
+
+To be able to navigate with the directional arrows, do this : 
+
+Install [rlwrap](https://github.com/hanslub42/rlwrap):
+
+```sh
+debian:
+sudo apt install rlwrap
+
+arch:
+sudo pacman -S rlwrap
+
+macOS:
+brew install rlwrap
+```
+
+add in your ~/.bashrc :
 ```sh
 alias cpad='rlwrap cpad'
 ```
-To be able to navigate with the directional arrows, and avoid the problems of CTRL + D. 
+and save your alias with : 
+```sh
+source ~/.bashrc
+```
 
 ## ⚡️ Quick start
 
