@@ -10,7 +10,7 @@ Then you just need to enter this command in your terminal:
 ```sh
 tar -xf <downloaded_archive> cpad && sudo mv cpad /usr/local/bin
 ````
-#### Pro tip (optional)
+#### 😎 Pro tip (optional)
 Install [rlwrap](https://github.com/hanslub42/rlwrap), and add an [alias](https://www.cyberciti.biz/faq/create-permanent-bash-alias-linux-unix/) ~/.bashrc :
 ```sh
 alias cpad='rlwrap cpad'
