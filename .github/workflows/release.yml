@@ -1,0 +1,57 @@
+on:
+  push:
+    tags:
+      - 'V[0-9]+.*'
+
+jobs:
+  create_release:
+    name: Create release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+     release_assets:
+     
+    name: Release assets
+    needs: create_release 
+    runs-on: ${{ matrix.config.os }} 
+    strategy:
+
+      matrix:
+        config:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
+    steps:
+      # checkout of cource
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: build
+        run: cmake . && make
+      - name: tests
+        run: ./unit-tests   
+                     
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+
+          asset_name: program-name-${{ matrix.config.os }}
+  
+          asset_path: ./path/to/your/file
+
+          asset_content_type: application/octet-stream
