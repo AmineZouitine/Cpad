@@ -1,0 +1,21 @@
+name: build
+
+on: push
+
+jobs:
+  unit_tests:
+    name: build
+    runs-on: ubuntu-latest
+    container:
+      image: docker://srzzumix/googletest:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: build
+        run: clang++ -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD="ARM;X86;AArch64" src/*.cc src/*/.cc -o cpad
+       - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cpad-save
+          path: |
+            src/cpad
