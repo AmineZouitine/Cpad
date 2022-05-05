@@ -5,7 +5,10 @@ on: push
 jobs:
   unit_tests:
     name: checking
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     container:
       image: docker://srzzumix/googletest:latest
     steps:
@@ -15,3 +18,10 @@ jobs:
         run: cmake . && make
       - name: tests
         run: ./unit-tests
+      - name: Deploy
+        uses: s0/git-publish-subdir-action@master
+        env:
+          REPO: self
+          BRANCH: data_build
+          FOLDER: tools/data_build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
