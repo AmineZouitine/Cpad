@@ -9,8 +9,10 @@ jobs:
     container:
       image: docker://srzzumix/googletest:latest
     steps:
-      - name: install
-        run: apt-get update && apt-get install clang-10
+      - name: Install sudo
+        run: apt update && apt install sudo
+      - name: Install clang++
+        run: sudo apt-get install clang-10
       - name: Checkout
         uses: actions/checkout@v2
       - name: build
